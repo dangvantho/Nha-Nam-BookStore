@@ -1,0 +1,12 @@
+extends ./layouts/common.pug
+block content
+  h1.text-center Add author
+  .d-flex.justify-content-center.mt-4
+    form.form-control(method="post", style='width: 400px;')
+      label.my-3(for='') Tên:
+      input.form-control(type='text', name='name', placeholder='Tên tác giả')
+      label.my-3(for='') Năm sinh- Năm mất:
+      input.form-control(type='text', name='age', placeholder='Tên tác giả')
+      label.my-3(for='') Giới thiệu tác giả:
+      textarea.form-control.my-3(name='desc', id='', rows='5')
+      input.btn.btn-primary.px-4.py-2.my-3(type='submit')
