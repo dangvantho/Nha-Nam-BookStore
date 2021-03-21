@@ -1,0 +1,104 @@
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import {Grid,List, ListItem,Hidden,Box,Modal} from '@material-ui/core'
+import {makeStyles} from '@material-ui/core/styles'
+import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
+import RegisterForm from '../RegisterForm';
+
+HeaderTop.propTypes = {
+    
+};
+const useStyles=makeStyles(theme=>({
+    listItems:{
+        width:'auto',
+        lineHeight:'22px',
+        padding:0,
+    },
+    link:{
+        color: theme.palette.success.dark,
+        textDecoration: 'none',
+    },
+    modal:{
+        display:'flex',
+        justifyContent:'center',
+        alignItems:'center',
+    },
+}))
+
+function HeaderTop(props) {
+    const {user}=props
+    const [login,setLogin]=useState(false)
+    function handleToggleLoginForm(){
+        setLogin(!login)
+    }
+    const classes=useStyles()
+    return (
+        <Hidden xsDown>
+            <Grid container spacing={0}>
+                <Grid item xs={6}>
+                    <List disablePadding={true} >
+                        <Box display='flex' justifyContent='flex-start' fontSize={12} color='green'>
+                          <ListItem className={classes.listItems}>
+                              <Link className={classes.link} to="/">Giới thiệu</Link>
+                          </ListItem>
+                          <Box display='flex' justifyContent='center' paddingLeft={2} paddingRight={2} alignContent='center'>|</Box>
+                          <ListItem className={classes.listItems}>
+                              <Link className={classes.link} to="">Lịch sử giao dịch</Link>
+                          </ListItem>
+                          <Box display='flex' justifyContent='center' paddingLeft={2} paddingRight={2} alignContent='center'>|</Box>
+                          <ListItem className={classes.listItems}>
+                              <Link className={classes.link} to="">Tra cứu đơn hàng</Link>
+                          </ListItem>
+                        </Box>
+                    </List>
+                </Grid>
+                <Grid item xs={6} >
+                    <Box display='flex' justifyContent='flex-end'>
+                        <List disablePadding={true} >
+                            <Box display='flex' justifyContent='flex-start' fontSize={12} color='green'>
+                              <ListItem className={classes.listItems}>
+                                  <Link 
+                                    className={classes.link} 
+                                    to={user.name ? '/user': '/register'}
+                                    onClick={user.name? null: handleToggleLoginForm}
+                                  >
+                                      {user.name|| 'Đăng ký'}
+                                  </Link>
+                              </ListItem>
+                              <Box display='flex' justifyContent='center' paddingLeft={2} paddingRight={2} alignContent='center'>|</Box>
+                              <ListItem className={classes.listItems}>
+                                  <Link className={classes.link} to={user.name ? '/': '/login'}>
+                                      {user.name ? 'Thoát': 'Đăng nhập'}
+                                  </Link>
+                              </ListItem>
+                            </Box>
+                        </List>
+                    </Box>
+                </Grid>
+            </Grid>
+            <Modal
+              open={login}
+              onClose={handleToggleLoginForm}
+              className={classes.modal}
+              disableAutoFocus={true}
+              disableEnforceFocus={true}
+            >
+                <Box 
+                  display='flex' justifyContent='center'
+                  alignItems='center' bgcolor='white' 
+                  height={500} pl={4} pr={4}
+                  borderRadius={4}
+                >
+                    <RegisterForm/>
+                </Box>
+            </Modal>
+        </Hidden>
+    );
+}
+
+const mapStateToProps=state=>({
+    user: state.user,
+})
+
+export default connect(mapStateToProps,null)(HeaderTop)
