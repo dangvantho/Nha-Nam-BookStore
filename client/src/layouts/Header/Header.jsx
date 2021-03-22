@@ -2,6 +2,7 @@ import React from 'react';
 import {Box} from '@material-ui/core';
 import headerStyle from './Header.style';
 import HeaderTop from '../../components/HeaderTop/HeaderTop';
+import MainHeader from '../../components/MainHeader/MainHeader.jsx';
 
 
 export default function SpacingGrid() {
@@ -14,7 +15,11 @@ export default function SpacingGrid() {
           <HeaderTop/>
         </Box>
       </div>
-      
+      <div className={classes.mainHeader}>
+        <Box className={classes.container}>
+          <MainHeader/>
+        </Box>
+      </div>
       
     </div>
     

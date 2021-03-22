@@ -6,7 +6,7 @@ export const fetchUser=createAsyncThunk('user/getUser',async (data)=>{
         {
             method: 'post',
             headers: { 'Content-Type': 'application/json'},
-            url: 'http://localhost:8080/post/user',
+            url: 'https://book-store-server-vn.herokuapp.com/post/user',
             data: data,
           }
     )
