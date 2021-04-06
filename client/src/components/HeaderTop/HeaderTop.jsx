@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {Grid,List, ListItem,Hidden,Box,Modal} from '@material-ui/core'
 import {makeStyles} from '@material-ui/core/styles'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import RegisterForm from '../RegisterForm';
+import LoginForm from '../LoginForm';
 
 HeaderTop.propTypes = {
     
@@ -29,9 +30,20 @@ const useStyles=makeStyles(theme=>({
 function HeaderTop(props) {
     const {user}=props
     const [login,setLogin]=useState(false)
+    const [register,setRegister]=useState(false)
     function handleToggleLoginForm(){
+        setRegister(false)
         setLogin(!login)
     }
+    function handleToggleRegister(){
+        setLogin(false)
+        setRegister(!register)
+    }
+    // Close Modal when have user
+    useEffect(()=>{
+        setLogin(false)
+        setRegister(false)
+    },[user.name])
     const classes=useStyles()
     return (
         <Hidden xsDown>
@@ -61,14 +73,18 @@ function HeaderTop(props) {
                                   <Link 
                                     className={classes.link} 
                                     to={user.name ? '/user': '/register'}
-                                    onClick={user.name? null: handleToggleLoginForm}
+                                    onClick={user.name? null: handleToggleRegister}
                                   >
                                       {user.name|| 'Đăng ký'}
                                   </Link>
                               </ListItem>
                               <Box display='flex' justifyContent='center' paddingLeft={2} paddingRight={2} alignContent='center'>|</Box>
                               <ListItem className={classes.listItems}>
-                                  <Link className={classes.link} to={user.name ? '/': '/login'}>
+                                  <Link 
+                                    className={classes.link} 
+                                    to={user.name ? '/': '/login'}
+                                    onClick={user.name? null: handleToggleLoginForm}
+                                  >
                                       {user.name ? 'Thoát': 'Đăng nhập'}
                                   </Link>
                               </ListItem>
@@ -77,6 +93,22 @@ function HeaderTop(props) {
                     </Box>
                 </Grid>
             </Grid>
+            <Modal
+              open={register}
+              onClose={handleToggleRegister}
+              className={classes.modal}
+              disableAutoFocus={true}
+              disableEnforceFocus={true}
+            >
+                <Box 
+                  display='flex' justifyContent='center'
+                  alignItems='center' bgcolor='white' 
+                  height={500} pl={4} pr={4}
+                  borderRadius={4}
+                >
+                    <RegisterForm/>
+                </Box>
+            </Modal>
             <Modal
               open={login}
               onClose={handleToggleLoginForm}
@@ -90,7 +122,7 @@ function HeaderTop(props) {
                   height={500} pl={4} pr={4}
                   borderRadius={4}
                 >
-                    <RegisterForm/>
+                    <LoginForm/>
                 </Box>
             </Modal>
         </Hidden>

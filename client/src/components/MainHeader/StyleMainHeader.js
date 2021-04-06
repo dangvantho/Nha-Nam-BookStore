@@ -1,4 +1,5 @@
 import {makeStyles} from '@material-ui/core/styles'
+import logoMobile from '../../assets/images/logo-mobile.png'
 
 const useStyles=makeStyles(theme=>({
     root:{
@@ -9,7 +10,7 @@ const useStyles=makeStyles(theme=>({
         maxWidth: 500,
         position: 'absolute',
         bottom: theme.spacing(2),
-        left: 4,
+        left: 0,
     },
     formInput:{
         width: 322,
@@ -17,10 +18,10 @@ const useStyles=makeStyles(theme=>({
         backgroundColor: 'white',
         position: 'absolute',
         bottom: theme.spacing(2),
-        right: 8,
+        right: 0,
     },
     input: {
-        maxWidth: '298px',
+        width: '298px',
         lineHeight: '30px',
         fontSize: 12,
         fontStyle:'italic',
@@ -30,9 +31,49 @@ const useStyles=makeStyles(theme=>({
     },
     searchIcon: {
         position:'absolute',
-        right: -8,
+        right: 0,
         top: -7,
-    }
+    },
+    mobile:{
+        display:'flex',
+        alignItems:'center',
+    },
+    menuIcon:{
+        color:'white',
+    },
+    logoMobile:{
+        margin:'0 auto',
+        height:50,
+        width: 155,
+        background:`url(${logoMobile}) no-repeat`,
+    },
+    collaps:{
+        position:'absolute',
+        top: '100%',
+        left:'-2%',
+        right:0,
+        zIndex:9,
+    },
+    dropMenu:{
+        listStyle:'none',
+        backgroundColor:'white',
+        padding:'0 2%',
+        margin: 0,
+        width:'100%',
+    },
+    link:{
+        color:'#0f5731',
+        borderBottom:'1px dotted #ccc',
+        padding:'5px 10px',
+    },
+    formInputMobile:{
+        width: '100%',
+        padding:'6px 2% 6px 0',
+        backgroundColor:'white',
+        display:'flex',
+        alignItems:'center',
+    },
+    
 }))
 
 

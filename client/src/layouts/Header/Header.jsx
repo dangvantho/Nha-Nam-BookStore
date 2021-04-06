@@ -1,8 +1,9 @@
 import React from 'react';
-import {Box} from '@material-ui/core';
+import {Box, Hidden} from '@material-ui/core';
 import headerStyle from './Header.style';
 import HeaderTop from '../../components/HeaderTop/HeaderTop';
 import MainHeader from '../../components/MainHeader/MainHeader.jsx';
+import Navbar from '../../components/Navbar/Navbar';
 
 
 export default function SpacingGrid() {
@@ -20,6 +21,13 @@ export default function SpacingGrid() {
           <MainHeader/>
         </Box>
       </div>
+      <Hidden xsDown>
+        <div className={classes.navbar}>
+          <Box className={classes.container}>
+            <Navbar/>
+          </Box>
+        </div>
+      </Hidden>
       
     </div>
     

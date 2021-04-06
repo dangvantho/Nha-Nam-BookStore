@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux'
+import { useDispatch,connect } from 'react-redux'
 import {TextField,Input,Box} from '@material-ui/core'
 import {makeStyles} from '@material-ui/core/styles'
-import {fetchUser} from '../store/reducers/user.reducer'
+import {fetchLogin} from '../store/reducers/user.reducer'
 
 const useStyles=makeStyles(theme=>({
     form:{
@@ -26,7 +26,9 @@ const useStyles=makeStyles(theme=>({
         color: theme.palette.error.main,
     }
 }))
-function RegisterForm(props) {
+function LoginForm(props) {
+    const {formErr}= props
+    console.log(formErr)
     const dispatch= useDispatch()
     const [validate,setValidate]=useState({
         name: true,
@@ -37,28 +39,21 @@ function RegisterForm(props) {
     const classes=useStyles()
     // Check validate
     function validation(form){
-        let newState={}
-        for(let key in form){
-          if(!form[key]) newState[key]=false
-          else newState[key]=true
-        }
-        setValidate(newState)
+        
     }
     function handleSubmit(e){
         e.preventDefault()
-        const {name,email,password,verifyPassword}=e.target
+        const {name,password}=e.target
         const form={
           name: name.value,
-          email: email.value,
           password: password.value,
-          verifyPassword: verifyPassword.value,
         }
-        dispatch(fetchUser(form))
+        dispatch(fetchLogin(form))
     }
     return (
       
         <form onSubmit={handleSubmit} className={classes.form} >
-            <Box textAlign='center' color='#757575' fontSize={18}> Đăng ký</Box>
+            <Box textAlign='center' color='#757575' fontSize={18}> Đăng nhập</Box>
             <Box display='flex' justifyContent='center' mt={3}>
               <TextField 
                 className={classes.inputField} 
@@ -66,15 +61,6 @@ function RegisterForm(props) {
                 variant='outlined' 
                 label={`Tên`}
                 error={!validate.name}
-              />
-            </Box>
-            <Box display='flex' justifyContent='center' mt={3}>
-              <TextField 
-                className={classes.inputField} 
-                name='email' 
-                variant='outlined' 
-                label={`Email`}
-                error={!validate.email}
               />
             </Box>
             <Box display='flex' justifyContent='center' mt={3}>
@@ -88,20 +74,13 @@ function RegisterForm(props) {
               />
             </Box>
             <Box display='flex' justifyContent='center' mt={3}>
-              <TextField 
-                className={classes.inputField} 
-                name='verifyPassword' 
-                type='password' 
-                variant='outlined' 
-                label={`Xác nhận mật khẩu`}
-                error={!validate.verifyPassword}
-              />
-            </Box>
-            <Box display='flex' justifyContent='center' mt={3}>
               <input type='submit' className={classes.input} />
             </Box>
         </form>
     );
 }
+const mapStateToProps=state=>({
+    formErr: state.user.formErr
+})
 
-export default RegisterForm;
+export default connect(mapStateToProps,null)(LoginForm)

@@ -1,16 +1,21 @@
 import {makeStyles} from '@material-ui/core/styles'
 import headerBg from '../../assets/images/headerbg.png'
+import mobileHeader from '../../assets/images/slidebottombg.png'
 const headerStyle=makeStyles((theme)=>({
     root: {
       flexGrow:1,
-      backgroundImage:`url(${headerBg})`
+      backgroundImage:`url(${headerBg})`,
+      [theme.breakpoints.down('xs')]:{
+          backgroundImage:`url(${mobileHeader})`
+      },
     },
     container:{
         [theme.breakpoints.up('xs')]: {
             width:'98%',
         },
-        [theme.breakpoints.up('1000px')]: {
-            width:'1000px',
+        [theme.breakpoints.up('md')]: {
+            width:'100%',
+            maxWidth: '1000px',
         },
         margin: theme.spacing(0,'auto'),
     },
@@ -20,12 +25,12 @@ const headerStyle=makeStyles((theme)=>({
     mainHeader:{
         display:'flex',
         alignItems:'flex-end',
-        height: 150,
+        [theme.breakpoints.up('sm')]:{
+            height: 150,
+        },
     },
-    modal:{
-        display:'flex',
-        justifyContent:'center',
-        marginTop: 32,
-    },
+    navbar:{
+        backgroundColor:'#046306',
+    }
 }))
 export default headerStyle
