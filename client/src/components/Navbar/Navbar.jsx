@@ -26,13 +26,13 @@ function Navbar(props) {
                           <Link className={classes.textLink} to='/' >Văn học Việt Nam</Link>
                         </ListItem>
                         <ListItem className={classes.item}>
-                          <Link className={classes.textLink} to='/' >Văn học Việt Nam</Link>
+                          <Link className={classes.textLink} to='/' >Văn học nước ngoài</Link>
                         </ListItem>
                         <ListItem className={classes.item}>
-                          <Link className={classes.textLink} to='/' >Văn học Việt Nam</Link>
+                          <Link className={classes.textLink} to='/' >Sách thiếu nhi</Link>
                         </ListItem>
                         <ListItem className={classes.item}>
-                          <Link className={classes.textLink} to='/' >Văn học Việt Nam</Link>
+                          <Link className={classes.textLink} to='/' >Khoa học</Link>
                         </ListItem>
                     </List>
                 </List>
@@ -48,8 +48,8 @@ function Navbar(props) {
                 <List className={classes.list}>
                     <ListItem  button className={classes.listItem}>
                         { isAdmin? 
-                           <Link className={classes.textLink} to='/' >Thêm/Chỉnh sửa sách</Link> :
-                           <Link className={classes.textLink} to='/' >Chương trình khuyến mại</Link>
+                           <Link className={classes.textLink} to='/book' >Thêm/Chỉnh sửa sách</Link> :
+                           <Link className={classes.textLink} to='/chuong-trinh-khuyen-mai' >Chương trình khuyến mại</Link>
                         }
                     </ListItem>
                 </List>
@@ -58,8 +58,8 @@ function Navbar(props) {
                 <List className={classes.list}>
                     <ListItem  button className={classes.listItem}>
                         { isAdmin? 
-                           <Link className={classes.textLink} to='/' >Thêm tác giả</Link> :
-                           <Link className={classes.textLink} to='/' >Giảm giá đặc biệt</Link>
+                           <Link className={classes.textLink} to='/add-author' >Thêm tác giả</Link> :
+                           <Link className={classes.textLink} to='/giam-gia-dac-biet' >Giảm giá đặc biệt</Link>
                         }
                     </ListItem>
                 </List>

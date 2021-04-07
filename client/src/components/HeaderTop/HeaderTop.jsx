@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {Grid,List, ListItem,Hidden,Box,Modal} from '@material-ui/core'
 import {makeStyles} from '@material-ui/core/styles'
-import {connect} from 'react-redux'
+import {connect,useDispatch} from 'react-redux'
 import {Link} from 'react-router-dom'
 import RegisterForm from '../RegisterForm';
 import LoginForm from '../LoginForm';
+import {logOut} from '../../store/reducers/user.reducer'
 
 HeaderTop.propTypes = {
     
@@ -29,6 +30,7 @@ const useStyles=makeStyles(theme=>({
 
 function HeaderTop(props) {
     const {user}=props
+    const dispatch=useDispatch()
     const [login,setLogin]=useState(false)
     const [register,setRegister]=useState(false)
     function handleToggleLoginForm(){
@@ -44,6 +46,10 @@ function HeaderTop(props) {
         setLogin(false)
         setRegister(false)
     },[user.name])
+    // Logout
+    function handleLogout(){
+        dispatch(logOut())
+    }
     const classes=useStyles()
     return (
         <Hidden xsDown>
@@ -83,7 +89,7 @@ function HeaderTop(props) {
                                   <Link 
                                     className={classes.link} 
                                     to={user.name ? '/': '/login'}
-                                    onClick={user.name? null: handleToggleLoginForm}
+                                    onClick={user.name? handleLogout: handleToggleLoginForm}
                                   >
                                       {user.name ? 'Thoát': 'Đăng nhập'}
                                   </Link>

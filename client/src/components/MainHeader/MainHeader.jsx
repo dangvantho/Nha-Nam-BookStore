@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux'
+import {connect,useDispatch} from 'react-redux'
 import {Grid,Hidden, Box,IconButton, Collapse} from '@material-ui/core'
 import useStyles from './StyleMainHeader'
 import {Search,Menu } from '@material-ui/icons'
 import cartImg from '../../assets/images/cart.png'
 import logoImg from '../../assets/images/logo.png'
+import {logOut} from '../../store/reducers/user.reducer'
 
 import {Link} from 'react-router-dom'
 
@@ -13,6 +14,8 @@ import {Link} from 'react-router-dom'
 
 function MainHeader(props) {
     const classes=useStyles()
+    const {user,}=props
+    const dispatch=useDispatch()
     const [dropMenu,setDropMenu]= useState(false)
     const [searchMobile, setSearchMobile]=useState(false)
     function handleToggleMenu(){
@@ -41,6 +44,7 @@ function MainHeader(props) {
                           <Search style={{color:'white',}}/>
                     </IconButton>
                 </Grid>
+                {/* Drop menu */}
                 <Grid item xs={12}>
                     <Collapse in={dropMenu} className={classes.collaps}>
                         <ul className={classes.dropMenu}>
@@ -57,10 +61,22 @@ function MainHeader(props) {
                                 <Link to='/' style={{textDecoration:'none',color:'#0f5731'}} >Kiểm tra đơn hàng</Link>
                             </li>
                             <li className={classes.link}>
-                                <Link to='/' style={{textDecoration:'none',color:'#0f5731'}} >Đăng ký</Link>
+                                <Link 
+                                  to={user.name ? '/': '/register'}
+                                  style={{textDecoration:'none',color:'#0f5731'}}
+                                //   onClick={} 
+                                >
+                                    {user.name ? user.name: 'Đăng ký'}
+                                </Link>
                             </li>
                             <li className={classes.link}>
-                                <Link to='/' style={{textDecoration:'none',color:'#0f5731'}} >Đăng nhập</Link>
+                                <Link 
+                                  to={user.name ? '/': '/login'} 
+                                  style={{textDecoration:'none',color:'#0f5731'}}
+                                  //   onClick={} 
+                                >
+                                    {user.name ? user.name: 'Đăng nhập'}
+                                </Link>
                             </li>
                         </ul>
                     </Collapse>
@@ -102,5 +118,8 @@ function MainHeader(props) {
         
     );
 }
+const mapStateToProps=state=>({
+    user: state.user
+})
 
-export default connect(null,null)(MainHeader)
+export default connect(mapStateToProps,null)(MainHeader)

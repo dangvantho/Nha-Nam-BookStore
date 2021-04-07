@@ -5,11 +5,14 @@ import App from './App';
 import store from './store/store'
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
+import Session from './auth/Session';
 
 ReactDOM.render(
   <React.Fragment>
     <Provider store={store}>
-      <App />
+      <Session>
+        <App />
+      </Session>
     </Provider>
   </React.Fragment>
     ,

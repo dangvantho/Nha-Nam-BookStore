@@ -10,6 +10,8 @@ const useStyles=makeStyles(theme=>({
     textLink:{
         color:'white',
         textDecoration:'none',
+        width:' 100%',
+        textAlign: 'center',
     },
     list:{
         padding:0,
