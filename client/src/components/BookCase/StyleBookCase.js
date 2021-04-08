@@ -103,8 +103,7 @@ const useStyles=makeStyles(theme=>({
         },
     },
     imgBook:{
-        width: '100%',
-        
+        maxHeight:'100%',
     },
     boxInfor:{
         display:'none',

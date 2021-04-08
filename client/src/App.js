@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Route, Link,Switch} from 'react-router-dom'
 import Home from './pages/Home/Home';
 import Footer from './layouts/Footer/Footer';
 import Auth from './auth/Auth'
+import ManageBook from './pages/Manage Book/ManageBook';
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
           
           <Route exact path='/book'>
             <Auth >
-              Console
+              <ManageBook/>
             </Auth>
           </Route>
           <Route path='/'  >
