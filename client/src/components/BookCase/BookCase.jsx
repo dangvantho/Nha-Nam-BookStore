@@ -6,7 +6,7 @@ import {makeStyles} from '@material-ui/core/styles'
 import useStyles from './StyleBookCase'
 import {Box,Button,Paper} from '@material-ui/core'
 import loading from '../../assets/images/loading.gif'
-import {fetchBook,fetchImageBook} from '../../store/reducers/book.reducer'
+import {fetchBook} from '../../store/reducers/book.reducer'
 
 
 BookCase.propTypes = {
@@ -18,44 +18,41 @@ function BookCase(props) {
     const classes=useStyles()
     const {books,type} = props
     let listBooks=books.type[type.type]
-    const images= books.images
     const dispatch=useDispatch()
     useEffect(()=>{
         dispatch(fetchBook({...type}))
+        // dispatch(fetchImageBook({list: listBooks, type: type.type}))
     },[])
-    useEffect(()=>{
-        dispatch(fetchImageBook({list: listBooks, type: type.type}))
-    },[listBooks])
     // Tranform data image to string image
-    function transformDataToImage(id){
-        let image= images.find(value=>value._id===id)
+    function transformDataToImage(book){
+        let image= book.image
         let str=loading
-        if(image) str='data:image/png;base64,'+image.image
+        if(image) str='data:image/png;base64,'+image
         return str
     }
     return (
         <React.Fragment>
             <div className={classes.pageTitle}>
-                <Link to='/sach-ban-chay' className={classes.link} >
+                <Link to={`/${type.title}`} className={classes.link} >
                     <div className={classes.imageTitle}>{type.title}</div>
                 </Link>
             </div>
             <div className={classes.root}>
               <ul className={classes.bookList}>
-                  {listBooks.map(book=>(
+                  {listBooks? listBooks.map(book=>(
                       <li className={classes.listItem} key={book._id}>
-                            <Link to='/' className={classes.book}>
-                                <img src={transformDataToImage(book._id)} className={classes.imgBook} alt=""/>
+                            <Link to={`/book/${book._id}`} className={classes.book}>
+                                <img src={transformDataToImage(book)} className={classes.imgBook} alt=""/>
                                 <div className={classes.boxInfor}>
                                    <Box className={classes.headerBoxInfor}>
-                                       Tuổi trẻ đáng giá bao nhiêu
+                                       {book.title}
                                    </Box>
                                    <ul className={classes.bookInfor}>
-                                       <li>Số trang:</li>
-                                       <li>Kích thước:</li>
-                                       <li>Ngày phát hành:</li>
+                                       <li>Số trang: {book.pages}</li>
+                                       <li>Kích thước: {book.size} cm</li>
+                                       <li>Năm phát hành: {book.time}</li>
                                    </ul>
-                                   <span className={classes.bookPrice} >27,000đ</span>
+                                   <span className={classes.bookPrice} >{book.money}đ</span>
                                    <Box textAlign='center' marginBottom={1.5}>
                                       <Button variant='contained' className={classes.btn} >Thêm vào giỏ hàng</Button>
                                       <Button variant='contained' className={classes.btn}>Mua hàng</Button>
@@ -63,7 +60,9 @@ function BookCase(props) {
                                 </div>
                             </Link>
                       </li>
-                  ))}
+                  )) 
+                  : <img src={loading} className={classes.imgBook} />
+                }
                 </ul>
             </div>    
         </React.Fragment>

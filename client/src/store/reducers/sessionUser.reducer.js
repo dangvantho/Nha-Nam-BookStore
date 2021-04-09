@@ -19,8 +19,7 @@ export const fetchSessionId=createAsyncThunk('session/fetchSessionId',async ()=>
 export const deleteSession=createAsyncThunk('session/deleteSession', async (id)=>{
     const res= await axios({
         method:'delete',
-        url:domain+'/session',
-        data: id,
+        url:domain+'/session/'+id,
     })
     return res.data
 })

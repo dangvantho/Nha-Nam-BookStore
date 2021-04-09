@@ -19,7 +19,7 @@ function Home(props) {
         <div className={classesCommon.root}>
             <div className={classesCommon.container}>
                 <Slider  />
-                {typesBook.map(type=>(<BookCase type={type}/>))}
+                {typesBook.map((type,index)=>(<BookCase type={type} key={index}/>))}
                 
             </div>
         </div>

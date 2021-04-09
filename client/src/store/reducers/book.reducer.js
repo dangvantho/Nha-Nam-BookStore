@@ -21,20 +21,19 @@ export const fetchBook= createAsyncThunk('books/fetchBook',async (data)=>{
     })
     return res.data
 })
-export const fetchImageBook= createAsyncThunk('books/fetchImageBook', async (data)=>{
-    const fetchImage= function (id){
-        return new Promise((resolve,reject)=>{
-            axios({
-                method:'get',
-                url:domain+'/book/image',
-                params:{id: id},
-            }).then(res=>resolve(res.data))
-            .catch(err=>reject(err))
-        })
-    }
-    const values= await Promise.all(data.list.map(book=>fetchImage(book._id)))
-    return {data: values, type: data.type}
+export const fetchOneBook=createAsyncThunk('books/fetchOneBook',async (id)=>{
+    const url= domain+'/book/'+id
+    const res= await axios({url, method:'get'})
+    return res.data
 })
+export const fetchByFilter=createAsyncThunk('books/fetchByFilter',async (filter)=>{
+    const res= await axios({
+        method:'post',
+        url:domain+'/book/sortBy',
+        data:{filter},
+    })
+     return res.data
+}) 
 
 const booksSlice=createSlice({
     name:'books',
@@ -47,7 +46,9 @@ const booksSlice=createSlice({
             science:[],
         },
         formErr:null,
-        images:[],
+        book:'',
+        isLoading:false,
+        filterBooks:{},
     },
     reducers:{
         
@@ -60,24 +61,34 @@ const booksSlice=createSlice({
                 console.log(res)
             }
         },
+        [fetchBook.pending]:(state,action)=>{
+            const {type}=action.meta.arg
+            state.type[type]=null
+        },
         [fetchBook.fulfilled]:(state,action)=>{
             const res=action.payload
-            if(res.data.length>0){
-                state.type[res.type]=res.data
-                //state.type[]
+            const {type,data}=res
+            if(data.length>0){
+                state.type[type]=data
+                const info={list: data, type}
             }
         },
-        [fetchImageBook.fulfilled]: (state,action)=>{
-            const data= action.payload
-            const type= data.type
-            const books= state.type[type]
-            let newBooks=[]
-            data.data.map(value=>{
-                let book= books.find(x=>x._id===value.id)
-                book.image=value.data
-                newBooks.push(book)
-            })
-            state.images=newBooks
+        // [fetchOneBook.pending]:(state,action)=>state.isLoading=true,
+        [fetchOneBook.fulfilled]:(state,action)=>{
+            const res=action.payload
+            if(res.err) {
+                state.book=res.err
+                state.isLoading=false
+            }
+            else {
+                state.book=res
+                state.isLoading=false
+            }
+        },
+        [fetchByFilter.fulfilled]:(state,action)=>{
+            const res= action.payload
+            const {data,key}=res
+            state.filterBooks[key]=data
         }
     }
 })

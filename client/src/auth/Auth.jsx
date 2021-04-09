@@ -8,15 +8,16 @@ Auth.propTypes = {
 };
 
 function Auth(props) {
-    const {accesstoken}=props
+    const {accesstoken,isAdmin}=props
     return (
         <div>
-            { !accesstoken ? <Redirect to='/'/> : props.children }
+            { !accesstoken || !isAdmin? <Redirect to='/'/> : props.children }
         </div>
     );
 }
 const mapStateToProps=state=>({
-    accesstoken:state.user.accesstoken
+    accesstoken:state.user.accesstoken,
+    isAdmin: state.user.isAdmin,
 })
 
 export default connect(mapStateToProps,null)(Auth)

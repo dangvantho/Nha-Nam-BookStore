@@ -103,7 +103,13 @@ const useStyles=makeStyles(theme=>({
         },
     },
     imgBook:{
+        height:'100%',
         maxHeight:'100%',
+        maxWidth:'100%',
+        [theme.breakpoints.down('xs')]:{
+            height: 'auto',
+            maxHeight:'100%',
+        },
     },
     boxInfor:{
         display:'none',
