@@ -21,11 +21,7 @@ const useStyles=makeStyles(theme=>({
         color: theme.palette.success.dark,
         textDecoration: 'none',
     },
-    modal:{
-        display:'flex',
-        justifyContent:'center',
-        alignItems:'center',
-    },
+    
 }))
 
 function HeaderTop(props) {
@@ -99,38 +95,8 @@ function HeaderTop(props) {
                     </Box>
                 </Grid>
             </Grid>
-            <Modal
-              open={register}
-              onClose={handleToggleRegister}
-              className={classes.modal}
-              disableAutoFocus={true}
-              disableEnforceFocus={true}
-            >
-                <Box 
-                  display='flex' justifyContent='center'
-                  alignItems='center' bgcolor='white' 
-                  height={500} pl={4} pr={4}
-                  borderRadius={4}
-                >
-                    <RegisterForm/>
-                </Box>
-            </Modal>
-            <Modal
-              open={login}
-              onClose={handleToggleLoginForm}
-              className={classes.modal}
-              disableAutoFocus={true}
-              disableEnforceFocus={true}
-            >
-                <Box 
-                  display='flex' justifyContent='center'
-                  alignItems='center' bgcolor='white' 
-                  height={500} pl={4} pr={4}
-                  borderRadius={4}
-                >
-                    <LoginForm/>
-                </Box>
-            </Modal>
+            <RegisterForm open={register} onClose={handleToggleRegister} />
+            <LoginForm open={login} onClose={handleToggleLoginForm} />
         </Hidden>
     );
 }

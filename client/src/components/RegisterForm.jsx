@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux'
-import {TextField,Input,Box} from '@material-ui/core'
+import {TextField,Input,Box,Modal} from '@material-ui/core'
 import {makeStyles} from '@material-ui/core/styles'
 import {fetchUser} from '../store/reducers/user.reducer'
 
@@ -24,9 +24,15 @@ const useStyles=makeStyles(theme=>({
     },
     inputFailure: {
         color: theme.palette.error.main,
-    }
+    },
+    modal:{
+      display:'flex',
+      justifyContent:'center',
+      alignItems:'center',
+  },
 }))
 function RegisterForm(props) {
+    const {open,onClose}=props
     const dispatch= useDispatch()
     const [validate,setValidate]=useState({
         name: true,
@@ -56,51 +62,66 @@ function RegisterForm(props) {
         dispatch(fetchUser(form))
     }
     return (
-      
-        <form onSubmit={handleSubmit} className={classes.form} >
-            <Box textAlign='center' color='#757575' fontSize={18}> Đăng ký</Box>
-            <Box display='flex' justifyContent='center' mt={3}>
-              <TextField 
-                className={classes.inputField} 
-                name='name' 
-                variant='outlined' 
-                label={`Tên`}
-                error={!validate.name}
-              />
-            </Box>
-            <Box display='flex' justifyContent='center' mt={3}>
-              <TextField 
-                className={classes.inputField} 
-                name='email' 
-                variant='outlined' 
-                label={`Email`}
-                error={!validate.email}
-              />
-            </Box>
-            <Box display='flex' justifyContent='center' mt={3}>
-              <TextField 
-                className={classes.inputField} 
-                name='password' 
-                type='password' 
-                variant='outlined' 
-                label={`Mật khẩu`}
-                error={!validate.password}
-              />
-            </Box>
-            <Box display='flex' justifyContent='center' mt={3}>
-              <TextField 
-                className={classes.inputField} 
-                name='verifyPassword' 
-                type='password' 
-                variant='outlined' 
-                label={`Xác nhận mật khẩu`}
-                error={!validate.verifyPassword}
-              />
-            </Box>
-            <Box display='flex' justifyContent='center' mt={3}>
-              <input type='submit' className={classes.input} />
-            </Box>
-        </form>
+      <Modal
+        open={open}
+        onClose={onClose}
+        className={classes.modal}
+        disableAutoFocus={true}
+        disableEnforceFocus={true}
+      >
+        <Box 
+          display='flex' justifyContent='center'
+          alignItems='center' bgcolor='white' 
+          height={500} pl={4} pr={4}
+          borderRadius={4}
+        >
+          <form onSubmit={handleSubmit} className={classes.form} >
+              <Box textAlign='center' color='#757575' fontSize={18}> Đăng ký</Box>
+              <Box display='flex' justifyContent='center' mt={3}>
+                <TextField 
+                  className={classes.inputField} 
+                  name='name' 
+                  variant='outlined' 
+                  label={`Tên`}
+                  error={!validate.name}
+                />
+              </Box>
+              <Box display='flex' justifyContent='center' mt={3}>
+                <TextField 
+                  className={classes.inputField} 
+                  name='email' 
+                  variant='outlined' 
+                  label={`Email`}
+                  error={!validate.email}
+                />
+              </Box>
+              <Box display='flex' justifyContent='center' mt={3}>
+                <TextField 
+                  className={classes.inputField} 
+                  name='password' 
+                  type='password' 
+                  variant='outlined' 
+                  label={`Mật khẩu`}
+                  error={!validate.password}
+                />
+              </Box>
+              <Box display='flex' justifyContent='center' mt={3}>
+                <TextField 
+                  className={classes.inputField} 
+                  name='verifyPassword' 
+                  type='password' 
+                  variant='outlined' 
+                  label={`Xác nhận mật khẩu`}
+                  error={!validate.verifyPassword}
+                />
+              </Box>
+              <Box display='flex' justifyContent='center' mt={3}>
+                <input type='submit' className={classes.input} />
+              </Box>
+          </form>
+        </Box>
+      </Modal>
+        
     );
 }
 

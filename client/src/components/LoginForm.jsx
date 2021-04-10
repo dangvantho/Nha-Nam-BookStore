@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch,connect } from 'react-redux'
-import {TextField,Input,Box} from '@material-ui/core'
+import {TextField,Input,Box,Modal} from '@material-ui/core'
 import {makeStyles} from '@material-ui/core/styles'
 import {fetchLogin} from '../store/reducers/user.reducer'
 
@@ -24,10 +24,15 @@ const useStyles=makeStyles(theme=>({
     },
     inputFailure: {
         color: theme.palette.error.main,
-    }
+    },
+    modal:{
+      display:'flex',
+      justifyContent:'center',
+      alignItems:'center',
+  },
 }))
 function LoginForm(props) {
-    const {formErr}= props
+    const {formErr,open,onClose}= props
     console.log(formErr)
     const dispatch= useDispatch()
     const [validate,setValidate]=useState({
@@ -51,32 +56,47 @@ function LoginForm(props) {
         dispatch(fetchLogin(form))
     }
     return (
-      
-        <form onSubmit={handleSubmit} className={classes.form} >
-            <Box textAlign='center' color='#757575' fontSize={18}> Đăng nhập</Box>
-            <Box display='flex' justifyContent='center' mt={3}>
-              <TextField 
-                className={classes.inputField} 
-                name='name' 
-                variant='outlined' 
-                label={`Tên`}
-                error={!validate.name}
-              />
-            </Box>
-            <Box display='flex' justifyContent='center' mt={3}>
-              <TextField 
-                className={classes.inputField} 
-                name='password' 
-                type='password' 
-                variant='outlined' 
-                label={`Mật khẩu`}
-                error={!validate.password}
-              />
-            </Box>
-            <Box display='flex' justifyContent='center' mt={3}>
-              <input type='submit' className={classes.input} />
-            </Box>
-        </form>
+      <Modal
+        open={open}
+        onClose={onClose}
+        className={classes.modal}
+        disableAutoFocus={true}
+        disableEnforceFocus={true}
+      >
+          <Box 
+            display='flex' justifyContent='center'
+            alignItems='center' bgcolor='white' 
+            height={500} pl={4} pr={4}
+            borderRadius={4}
+          >
+              <form onSubmit={handleSubmit} className={classes.form} >
+                  <Box textAlign='center' color='#757575' fontSize={18}> Đăng nhập</Box>
+                  <Box display='flex' justifyContent='center' mt={3}>
+                    <TextField 
+                      className={classes.inputField} 
+                      name='name' 
+                      variant='outlined' 
+                      label={`Tên`}
+                      error={!validate.name}
+                    />
+                  </Box>
+                  <Box display='flex' justifyContent='center' mt={3}>
+                    <TextField 
+                      className={classes.inputField} 
+                      name='password' 
+                      type='password' 
+                      variant='outlined' 
+                      label={`Mật khẩu`}
+                      error={!validate.password}
+                    />
+                  </Box>
+                  <Box display='flex' justifyContent='center' mt={3}>
+                    <input type='submit' className={classes.input} />
+                  </Box>
+              </form>
+          </Box>
+      </Modal>
+        
     );
 }
 const mapStateToProps=state=>({

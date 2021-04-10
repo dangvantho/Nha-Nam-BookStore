@@ -55,12 +55,6 @@ function SameCategoryBooks(props) {
             }
         }
     }
-    useEffect( ()=>{
-        if(ref.current.clientWidth<list.length*150){
-            setShowBtnRight(true)
-        }
-        dispatch(fetchByFilter(filter))
-    },[filter[type]])
     let list
     if(books.filterBooks[type]){
         list=books.filterBooks[type]
@@ -68,6 +62,12 @@ function SameCategoryBooks(props) {
     if(hiddenBook){
         list=list.filter(book=>book._id!==hiddenBook)
     }
+    useEffect( ()=>{
+        if(ref.current.clientWidth<list.length*150){
+            setShowBtnRight(true)
+        }
+        dispatch(fetchByFilter(filter))
+    },[filter[type]])
     
     return (
         <div className={classes.root}>

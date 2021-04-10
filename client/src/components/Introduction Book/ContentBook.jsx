@@ -4,6 +4,7 @@ import {connect, useDispatch} from 'react-redux'
 import SameCategoryBooks from '../SameCategoryBooks/SameCategoryBooks'
 import buyButton from '../../assets/images/buynow.png'
 import addToCart from '../../assets/images/addtocart.png'
+import Comment from '../Comments/Comment';
 
 const useStyles=makeStyles(theme=>({
     root:{},
@@ -33,6 +34,8 @@ const useStyles=makeStyles(theme=>({
         marginTop:0,
         paddingBottom: 16,
         borderBottom:'3px solid #ccc',
+        fontWeight: 'bold',
+        color: 'green',
     },
     infor:{
         padding:0,
@@ -181,6 +184,9 @@ function ContentBook(props) {
                   filter={{author: book.author}} title='Sách cùng tác giả' type='author'
                   className={classes.sameKindOfBook}  />
 
+            </Grid>
+            <Grid item xs={12}>
+                <Comment idBook={book._id}/>
             </Grid>
         </Grid>
     );

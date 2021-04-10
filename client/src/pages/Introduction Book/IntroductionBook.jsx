@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import {useLocation} from 'react-router-dom'
 import { connect, useDispatch } from 'react-redux';
 import ContentBook from '../../components/Introduction Book/ContentBook';
-import { fetchOneBook } from '../../store/reducers/book.reducer';
+import { fetchOneBook,updateBook} from '../../store/reducers/book.reducer';
 import commonStyles from '../styleComon'
 import { makeStyles } from '@material-ui/core';
 import bg from '../../assets/images/headerbg.png'
@@ -30,7 +30,15 @@ function IntroductionBook(props) {
     }
     if(!book && !books.book ){
         dispatch(fetchOneBook(idBook))
-    } else if(books.book._id!==idBook) dispatch(fetchOneBook(idBook))
+    } else if(books.book._id!==idBook) {
+        let filterBooks= books.filterBooks
+        let arr=[]
+        for(let key in filterBooks){
+            arr=arr.concat(filterBooks[key])
+        }
+        let book= arr.find(value=>value._id===idBook)
+        dispatch(updateBook(book))
+    }
     
     
     

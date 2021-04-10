@@ -51,7 +51,9 @@ const booksSlice=createSlice({
         filterBooks:{},
     },
     reducers:{
-        
+        updateBook:(state,action)=>{
+            state.book=action.payload
+        }
     },
     extraReducers:{
         [fetchAddBook.fulfilled]:(state,action)=>{
@@ -92,4 +94,5 @@ const booksSlice=createSlice({
         }
     }
 })
+export const {updateBook}=booksSlice.actions
 export default booksSlice.reducer
