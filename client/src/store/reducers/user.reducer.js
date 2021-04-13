@@ -78,6 +78,7 @@ const userSlice=createSlice({
                 cart.sort((a,b)=>{
                     return new Date(a.createAt) - new Date(b.createAt)
                 })
+                console.log(accesstoken)
                 document.cookie=`accesstoken=${accesstoken}`
                 return ({name, isAdmin, cart, password, accesstoken, formErr:null})
             }

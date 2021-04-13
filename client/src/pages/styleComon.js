@@ -16,6 +16,7 @@ const useStyles=makeStyles(theme=>({
             maxWidth: 1000,
         },
         margin: '0 auto',
+        marginBottom: 20,
     },
     
 }))

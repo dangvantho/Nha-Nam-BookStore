@@ -83,7 +83,7 @@ function Footer(props) {
                     <Grid item xs={6} md={4} className={classes.footerTop}>
                         <ul className={classes.listLink}>
                             <li className={classes.item}>
-                                <Link to='/' className={classes.link}>
+                                <Link to='/pages/gioi-thieu' className={classes.link}>
                                     <span className={classes.avatar} >
                                         <ArrowForwardIosIcon className={classes.icon} />
                                     </span>
@@ -91,7 +91,7 @@ function Footer(props) {
                                 </Link>
                             </li>
                             <li className={classes.item}>
-                                <Link to='/' className={classes.link}>
+                                <Link to='/pages/chinh-sach-bao-mat' className={classes.link}>
                                     <span className={classes.avatar} >
                                         <ArrowForwardIosIcon className={classes.icon} />
                                     </span>
@@ -99,7 +99,7 @@ function Footer(props) {
                                 </Link>
                             </li>
                             <li className={classes.item}>
-                                <Link to='/' className={classes.link}>
+                                <Link to='/pages/hinh-thuc-thanh-toan' className={classes.link}>
                                     <span className={classes.avatar} >
                                         <ArrowForwardIosIcon className={classes.icon} />
                                     </span>
@@ -111,7 +111,7 @@ function Footer(props) {
                     <Grid item xs={6} md={4} className={classes.footerTop}>
                         <ul className={classes.listLink}>
                             <li className={classes.item}>
-                                <Link to='/' className={classes.link}>
+                                <Link to='/pages/lien-he' className={classes.link}>
                                     <span className={classes.avatar} >
                                         <ArrowForwardIosIcon className={classes.icon} />
                                     </span>
@@ -119,7 +119,7 @@ function Footer(props) {
                                 </Link>
                             </li>
                             <li className={classes.item}>
-                                <Link to='/' className={classes.link}>
+                                <Link to='/pages/thong-bao' className={classes.link}>
                                     <span className={classes.avatar} >
                                         <ArrowForwardIosIcon className={classes.icon} />
                                     </span>
@@ -127,7 +127,7 @@ function Footer(props) {
                                 </Link>
                             </li>
                             <li className={classes.item}>
-                                <Link to='/' className={classes.link}>
+                                <Link to='/pages/quy-dinh-doi-tra' className={classes.link}>
                                     <span className={classes.avatar} >
                                         <ArrowForwardIosIcon className={classes.icon} />
                                     </span>

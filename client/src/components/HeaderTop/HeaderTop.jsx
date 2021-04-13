@@ -54,7 +54,7 @@ function HeaderTop(props) {
                     <List disablePadding={true} >
                         <Box display='flex' justifyContent='flex-start' fontSize={12} color='green'>
                           <ListItem className={classes.listItems}>
-                              <Link className={classes.link} to="/">Giới thiệu</Link>
+                              <Link className={classes.link} to="/pages/gioi-thieu">Giới thiệu</Link>
                           </ListItem>
                           <Box display='flex' justifyContent='center' paddingLeft={2} paddingRight={2} alignContent='center'>|</Box>
                           <ListItem className={classes.listItems}>

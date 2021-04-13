@@ -59,15 +59,15 @@ function MainHeader(props) {
                                   >Danh mục sách</Link>
                             </li>
                             <li className={classes.link}>
-                                <Link to='/sach-ban-chay' style={{textDecoration:'none',color:'#0f5731'}} 
+                                <Link to='/pages/sach-ban-chay' style={{textDecoration:'none',color:'#0f5731'}} 
                                   >Sách bán chạy</Link>
                             </li>
                             <li className={classes.link}>
-                                <Link to='/chuong-trinh-khuyen-mai' style={{textDecoration:'none',color:'#0f5731'}} 
+                                <Link to='/pages/chuong-trinh-khuyen-mai' style={{textDecoration:'none',color:'#0f5731'}} 
                                   >Chương trình khuyến mãi</Link>
                             </li>
                             <li className={classes.link}>
-                                <Link to='/kiem-tra-don-hang' style={{textDecoration:'none',color:'#0f5731'}} 
+                                <Link to='/pages/kiem-tra-don-hang' style={{textDecoration:'none',color:'#0f5731'}} 
                                   >Kiểm tra đơn hàng</Link>
                             </li>
                             <li className={classes.link}>

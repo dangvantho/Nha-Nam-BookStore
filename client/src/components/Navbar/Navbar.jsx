@@ -44,7 +44,10 @@ function Navbar(props) {
             <Grid item xs={3}>
                 <List className={classes.list}>
                     <ListItem  button className={classes.listItem}>
-                        <Link className={classes.textLink} to='/sach-ban-chay' >Sách bán chạy</Link>
+                        { isAdmin? 
+                           <Link className={classes.textLink} to='/them-trang-thong-bao' >Thêm trang thông báo</Link> :
+                           <Link className={classes.textLink} to='/sach-ban-chay' >Sách bán chạy</Link>
+                        }
                     </ListItem>
                 </List>
             </Grid>

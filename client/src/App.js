@@ -6,6 +6,8 @@ import Footer from './layouts/Footer/Footer';
 import Auth from './auth/Auth'
 import ManageBook from './pages/Manage Book/ManageBook';
 import IntroductionBook from './pages/Introduction Book/IntroductionBook';
+import CreatePage from './pages/CreatePage/CreatePage';
+import NotificationPage from './pages/NotificationPage/NotificationPage';
 
 function App() {
   return (
@@ -18,6 +20,14 @@ function App() {
             <Auth >
               <ManageBook/>
             </Auth>
+          </Route>
+          <Route exact path='/them-trang-thong-bao'>
+            <Auth>
+              <CreatePage />
+            </Auth>
+          </Route>
+          <Route exact path='/pages/:title'>
+            <NotificationPage/>
           </Route>
           <Route exact path='/book/:id'>
             <IntroductionBook  />
