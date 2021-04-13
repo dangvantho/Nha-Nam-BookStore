@@ -90,6 +90,9 @@ const useStyles=makeStyles(theme=>({
             padding:'5px 2%',
             height:'auto',
         },
+        '&:hover $boxInfor': {
+            display: 'block',
+        },
     },
     book:{
         display:'block',
@@ -98,14 +101,14 @@ const useStyles=makeStyles(theme=>({
         [theme.breakpoints.down('xs')]:{
             height: 'auto',
         },
-        '&:hover $boxInfor': {
-            display: 'block',
-        },
+        
     },
     imgBook:{
         height:'100%',
         maxHeight:'100%',
         maxWidth:'100%',
+        backgroundColor:'transparent',
+        border:'none',
         [theme.breakpoints.down('xs')]:{
             height: 'auto',
             maxHeight:'100%',
@@ -136,6 +139,9 @@ const useStyles=makeStyles(theme=>({
             borderBottom:'6px solid white',
             borderTop:'6px solid transparent',
         },
+        [theme.breakpoints.down('md')]:{
+            display:'none !important',
+        }
     },
     headerBoxInfor:{
         position:'relative',
@@ -153,6 +159,7 @@ const useStyles=makeStyles(theme=>({
         color: 'black',
         padding:0,
         margin:'5px 0 0 28px',
+        
     },
     bookPrice:{
         margin: '12px 11px',
@@ -170,6 +177,18 @@ const useStyles=makeStyles(theme=>({
             color:'black',
             backgroundColor:'#0f5731',
         }
-    }
+    },
+    notify:{
+        position:'fixed',
+        top: 30,
+        right: '30%',
+        background:'green',
+        color:'#fff',
+        padding: '8px 16px',
+        fontSize:16,
+        animation:'notifyEffect 4s ease-in-out',
+    },
+    
+
 }))
 export default useStyles

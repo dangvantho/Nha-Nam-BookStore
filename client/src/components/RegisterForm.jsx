@@ -12,12 +12,13 @@ const useStyles=makeStyles(theme=>({
     },
     input:{
         color: theme.palette.common.white,
-        backgroundColor: theme.palette.primary.main,
-        padding:theme.spacing(2,6),
+        backgroundColor: 'green',
+        padding:theme.spacing(1,5),
         outline: 'none' ,
         fontSize: theme.spacing(2),
         cursor: 'pointer',
         border:'0',
+        borderRadius: 5,
     },
     inputField:{
         width:'100%'
@@ -29,6 +30,7 @@ const useStyles=makeStyles(theme=>({
       display:'flex',
       justifyContent:'center',
       alignItems:'center',
+      overflowY:'auto',
   },
 }))
 function RegisterForm(props) {
@@ -72,7 +74,7 @@ function RegisterForm(props) {
         <Box 
           display='flex' justifyContent='center'
           alignItems='center' bgcolor='white' 
-          height={500} pl={4} pr={4}
+          padding='24px 16px'
           borderRadius={4}
         >
           <form onSubmit={handleSubmit} className={classes.form} >
@@ -116,7 +118,7 @@ function RegisterForm(props) {
                 />
               </Box>
               <Box display='flex' justifyContent='center' mt={3}>
-                <input type='submit' className={classes.input} />
+                <input type='submit' className={classes.input} value='Đăng ký' />
               </Box>
           </form>
         </Box>

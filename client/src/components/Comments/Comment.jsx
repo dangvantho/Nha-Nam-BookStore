@@ -121,10 +121,10 @@ function Comment(props) {
             <div className={classes.postComment}>
                 {/* Kiểm tra đăng nhập */}
                 {user.name ? 
-                   (<Box display='flex' alignItems='center' >
+                   (<Box display='flex'  >
                         <Avatar className={classes.avatar} >{user.name[0]}</Avatar>
                        <form onSubmit={handleSubmit} className={classes.form} >
-                            <input type="text" name='content' className={classes.input}/>
+                            <textarea type="text" name='content' className={classes.input}/>
                             <input type="submit" className={classes.inputSubmit} />
                         </form>
                    </Box>) : 
@@ -177,6 +177,7 @@ function Comment(props) {
 const mapStateToProps=state=>({
     comments: state.comments,
     user: state.user,
-    book: state.books.book
+    book: state.books.book,
+    
 })
 export default connect(mapStateToProps,null)(Comment)

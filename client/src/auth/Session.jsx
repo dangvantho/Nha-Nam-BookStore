@@ -14,6 +14,8 @@ function Session(props) {
         }
         else if(!session.sessionId) {
             dispatch(fetchSessionId())
+        } else if(session.sessionId){
+            dispatch(fetchCart(session.sessionId))
         }
     },[accesstoken])
     return (

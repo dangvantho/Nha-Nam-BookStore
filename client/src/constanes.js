@@ -20,4 +20,6 @@ export const typesBook=[
         title: 'Sách khoa học'
     },
 ]
-export const DOMAIN='http://localhost:8080'
+export const DOMAIN= 'http://localhost:8080'
+// 'https://book-store-server-vn.herokuapp.com/'
+//  'http://localhost:8080'

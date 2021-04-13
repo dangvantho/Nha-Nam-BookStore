@@ -1,117 +1,21 @@
-import { Box, Grid, makeStyles,TextField } from '@material-ui/core';
-import React, { useState } from 'react';
+import { Box, Grid,TextField } from '@material-ui/core';
+import useStyles from './styleContentBook'
+import React, { useEffect, useState } from 'react';
 import {connect, useDispatch} from 'react-redux'
+import {updateCart} from '../../store/reducers/user.reducer'
+import {updateCartSession} from '../../store/reducers/sessionUser.reducer'
 import SameCategoryBooks from '../SameCategoryBooks/SameCategoryBooks'
 import buyButton from '../../assets/images/buynow.png'
 import addToCart from '../../assets/images/addtocart.png'
 import Comment from '../Comments/Comment';
+import Store from '../Store/Store';
 
-const useStyles=makeStyles(theme=>({
-    root:{},
-    boxTop:{
-        display:'flex',
-        flexWrap:'wrap',
-        justifyContent:'center',
-        marginBottom:12,
-    },
-    intro:{
-        whiteSpace:'pre-line',
-        fontSize:16,
-        lineHeight:1.5,
-    },
-    imgBook:{
-        maxWidth:'100%',
-        objectFit:'cover',
-        objectPosition:'center',
-        maxHeight:'300px',
-    },
-    inforMain:{
-        [theme.breakpoints.up('sm')]:{
-            borderBottom:'3px solid #ccc',
-        }
-    },
-    title:{
-        marginTop:0,
-        paddingBottom: 16,
-        borderBottom:'3px solid #ccc',
-        fontWeight: 'bold',
-        color: 'green',
-    },
-    infor:{
-        padding:0,
-        marginTop: 0,
-        marginBottom:20,
-        listStyle:'none',
-        
-    },
-    peaceOfBook:{
-        marginBottom:4,
-        padding:'5px 0',
-        color:'#333',
-        fontSize:12,
-        lineHeight:'20px',
-        borderBottom:'1px solid #999',
-        '&:before':{
-            content:"'*'",
-            paddingRight: 6,
-            lineHeight:'20px',
-        },
-        '& span':{
-            fontWeight:'bold',
-        },
-    },
-    buyBook:{
-        paddingLeft:35,
-        color:'white',
-        [theme.breakpoints.down('xs')]:{
-            paddingLeft:0,
-        }
-    },
-    oldPrice:{
-        background:'#999',
-        fontSize:12,
-        padding: 5,
-        borderRadius:4,
-        '& span':{
-            textDecoration:'line-through',
-        },
-    },
-    salePrice:{
-        background:'#0f5731',
-        fontSize:14,
-        padding:'8px 5px',
-        marginTop: 20,
-        borderRadius:4,
-        '& span':{
-            fontSize:20,
-            fontWeight: 'bold',
-        }
-    },
-    countInput:{
-        border:'none',
-        lineHeight: '30px',
-        width: 40,
-        textAlign:'center',
-        fontSize: 14,
-        color:'red',
-        outline:'none',
-    },
-    imageButton:{
-        marginBottom:2,
-        maxWidth: '100%',
-        cursor:'pointer',
-        paddingRight:8,
-        objectFit:'cover',
-        objectPosition:'center',
-        display:'block',
-    },
-    sameKindOfBook:{
-        marginTop:20,
-    },
-}))
 function ContentBook(props) {
-    const {book}=props
+    const {book,user,session}=props
+    let userCart = user.name ? user.cart : session.cart
+    const dispatch=useDispatch()
     const [count,setCount]=useState(1)
+    const [openStore,setOpenStore]=useState(false)
     let price=book.money
     price=Math.ceil((price.split(',')[0]-0)*0.8)+',000'
     function handleChageCount(e){
@@ -119,11 +23,44 @@ function ContentBook(props) {
         setCount(value)
     }
     function handleAddToCart(){
-        console.log(count)
+        let data
+        if(user.name){
+            userCart= userCart.filter(value=>value.idBook!==book._id)
+            data={
+                user: user.name,
+                cart: [...userCart, 
+                    {
+                        idBook: book._id, 
+                        count: count-0,
+                        createAt: new Date(),
+                        bookName: book.title,
+                        price,
+                    }]
+            }
+            dispatch(updateCart(data))
+        } else {
+            let cart=session.cart
+            cart= cart.filter(value=>value.idBook!==book._id)
+            data={
+                sessionId: session.sessionId,
+                cart: [...cart, 
+                    {
+                        idBook: book._id, 
+                        count: count-0,
+                        createAt: new Date(),
+                        bookName: book.title,
+                        price,
+                    }]
+            }
+            dispatch(updateCartSession(data))
+        }
     }
-    function handleBuy(){
-        console.log(count)
-    }
+    useEffect(()=>{
+        let currentBookInCart= userCart.find(value=>value.idBook===book._id)
+        console.log(userCart,currentBookInCart)
+        if(currentBookInCart) setCount(currentBookInCart.count)
+        else setCount(1)
+    },[book,session.cart,user.cart])
     const classes=useStyles()
     return (
         <Grid container spacing={0} justify='center'>
@@ -164,7 +101,7 @@ function ContentBook(props) {
                         {/* Buy */}
                         <Box padding='20px 0'  >
                             <img className={classes.imageButton} onClick={handleAddToCart} src={addToCart} alt="Buy now"/>
-                            <img className={classes.imageButton} onClick={handleBuy} src={buyButton} alt="Buy now"/>
+                            <img className={classes.imageButton} onClick={()=>setOpenStore(!openStore)} src={buyButton} alt="Buy now"/>
                         </Box>
                     </Grid>
                 </Grid>
@@ -188,9 +125,13 @@ function ContentBook(props) {
             <Grid item xs={12}>
                 <Comment idBook={book._id}/>
             </Grid>
+            <Store open={openStore} onClose={()=>setOpenStore(!openStore)}/>
         </Grid>
     );
 }
+const mapStateToProps=state=>({
+    session: state.session,
+    user: state.user,
+})
 
-
-export default ContentBook
+export default connect(mapStateToProps,null)(ContentBook)

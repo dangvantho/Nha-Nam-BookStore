@@ -1,10 +1,10 @@
 import {createSlice,createAsyncThunk} from '@reduxjs/toolkit'
 import axios from 'axios'
-const domain='http://localhost:8080'
+import {DOMAIN} from '../../constanes'
 export const fetchAddBook= createAsyncThunk('books/addBook',async (data)=>{
     const res= await axios({
         method:'post',
-        url: domain+'/book',
+        url: DOMAIN+'/book',
         data: data,
     })
     return res.data
@@ -16,20 +16,20 @@ export const fetchBook= createAsyncThunk('books/fetchBook',async (data)=>{
     }
     const res= await axios({
         method:'get',
-        url: domain+'/book',
+        url: DOMAIN+'/book',
         params: params,
     })
     return res.data
 })
 export const fetchOneBook=createAsyncThunk('books/fetchOneBook',async (id)=>{
-    const url= domain+'/book/'+id
+    const url= DOMAIN+'/book/'+id
     const res= await axios({url, method:'get'})
     return res.data
 })
 export const fetchByFilter=createAsyncThunk('books/fetchByFilter',async (filter)=>{
     const res= await axios({
         method:'post',
-        url:domain+'/book/sortBy',
+        url:DOMAIN+'/book/sortBy',
         data:{filter},
     })
      return res.data

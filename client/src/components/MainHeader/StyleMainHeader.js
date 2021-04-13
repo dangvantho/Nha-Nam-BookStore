@@ -50,8 +50,8 @@ const useStyles=makeStyles(theme=>({
     collaps:{
         position:'absolute',
         top: '100%',
+        right:'-1%',
         left:'-2%',
-        right:0,
         zIndex:9,
     },
     dropMenu:{
@@ -59,7 +59,7 @@ const useStyles=makeStyles(theme=>({
         backgroundColor:'white',
         padding:'0 2%',
         margin: 0,
-        width:'100%',
+        
     },
     link:{
         color:'#0f5731',

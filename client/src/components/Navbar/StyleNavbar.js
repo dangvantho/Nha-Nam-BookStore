@@ -12,6 +12,14 @@ const useStyles=makeStyles(theme=>({
         textDecoration:'none',
         width:' 100%',
         textAlign: 'center',
+        display:'block',
+        height:'100%',
+        display:'flex',
+        alignItems:'center',
+        justifyContent:'center',
+    },
+    subLink:{
+        lineHeight:'1',
     },
     list:{
         padding:0,
@@ -25,6 +33,7 @@ const useStyles=makeStyles(theme=>({
     listItem:{
         justifyContent:'center',
         height: 40,
+        padding:0,
     },
     items:{
         display:'none',
@@ -38,7 +47,8 @@ const useStyles=makeStyles(theme=>({
         '&:hover':{
             backgroundColor:'#026207',
             cursor:'pointer',
-        }
+        },
+        padding:0,
     },
 }))
 export default useStyles

@@ -28,17 +28,27 @@ function IntroductionBook(props) {
         book= books.type[type].find(data=>data._id===idBook)
         if(book) break
     }
-    if(!book && !books.book ){
-        dispatch(fetchOneBook(idBook))
-    } else if(books.book._id!==idBook) {
-        let filterBooks= books.filterBooks
-        let arr=[]
-        for(let key in filterBooks){
-            arr=arr.concat(filterBooks[key])
+    window.scrollTo({
+        top: 0,
+        left:0,
+        behavior: "smooth",
+    })
+    useEffect(()=>{
+        if(!book && !books.book ){
+            dispatch(fetchOneBook(idBook))
+        } 
+        else if(!books.book)  dispatch(fetchOneBook(idBook))
+        else if(books.book._id!==idBook) {
+            let filterBooks= books.filterBooks
+            let arr=[]
+            for(let key in filterBooks){
+                arr=arr.concat(filterBooks[key])
+            }
+            let book= arr.find(value=>value._id===idBook)
+            dispatch(updateBook(book))
         }
-        let book= arr.find(value=>value._id===idBook)
-        dispatch(updateBook(book))
-    }
+    },[idBook])
+    
     
     
     

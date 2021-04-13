@@ -19,20 +19,24 @@ function Navbar(props) {
             <Grid item xs={3}>
                 <List className={classes.list}>
                     <ListItem  button className={classes.listItem}>
-                        <Link className={classes.textLink} to='/' >Danh mục sách</Link>
+                        <div className={classes.textLink}  >Danh mục sách</div>
                     </ListItem>
                     <List className={classes.items}>
-                        <ListItem className={classes.item}>
-                          <Link className={classes.textLink} to='/' >Văn học Việt Nam</Link>
+                        <ListItem className={classes.item} >
+                          <Link className={classes.textLink} style={{lineHeight:'30px',}} to='/van-hoc-viet-nam' >
+                              Văn học Việt Nam</Link>
                         </ListItem>
                         <ListItem className={classes.item}>
-                          <Link className={classes.textLink} to='/' >Văn học nước ngoài</Link>
+                          <Link className={classes.textLink} style={{lineHeight:'30px',}} to='/van-hoc-nuoc-ngoai' >
+                              Văn học nước ngoài</Link>
                         </ListItem>
                         <ListItem className={classes.item}>
-                          <Link className={classes.textLink} to='/' >Sách thiếu nhi</Link>
+                          <Link className={classes.textLink} style={{lineHeight:'30px',}} to='/sach-thieu-nhi' >
+                              Sách thiếu nhi</Link>
                         </ListItem>
                         <ListItem className={classes.item}>
-                          <Link className={classes.textLink} to='/' >Khoa học</Link>
+                          <Link className={classes.textLink} style={{lineHeight:'30px',}} to='/sach-khoa-hoc' >
+                              Khoa học</Link>
                         </ListItem>
                     </List>
                 </List>
@@ -40,7 +44,7 @@ function Navbar(props) {
             <Grid item xs={3}>
                 <List className={classes.list}>
                     <ListItem  button className={classes.listItem}>
-                        <Link className={classes.textLink} to='/' >Sách bán chạy</Link>
+                        <Link className={classes.textLink} to='/sach-ban-chay' >Sách bán chạy</Link>
                     </ListItem>
                 </List>
             </Grid>

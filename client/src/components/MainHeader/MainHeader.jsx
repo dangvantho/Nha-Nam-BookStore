@@ -7,8 +7,11 @@ import {Search,Menu } from '@material-ui/icons'
 import cartImg from '../../assets/images/cart.png'
 import logoImg from '../../assets/images/logo.png'
 import {logOut} from '../../store/reducers/user.reducer'
+import RegisterForm from '../RegisterForm'
+import LoginForm from '../LoginForm'
 
 import {Link} from 'react-router-dom'
+import Store from '../Store/Store';
 
 
 
@@ -18,6 +21,9 @@ function MainHeader(props) {
     const dispatch=useDispatch()
     const [dropMenu,setDropMenu]= useState(false)
     const [searchMobile, setSearchMobile]=useState(false)
+    const [openCart,setOpenCart]=useState(false)
+    const [login,setLogin]=useState(false)
+    const [register,setRegister]=useState(false)
     function handleToggleMenu(){
         if(searchMobile) {
             setSearchMobile(false)
@@ -39,7 +45,7 @@ function MainHeader(props) {
             <Hidden smUp>
                 <Grid item xs={12} className={classes.mobile}>
                     <Menu className={classes.menuIcon} fontSize='small' onClick={handleToggleMenu} />
-                    <div className={classes.logoMobile} />
+                    <Link to='/' className={classes.logoMobile} />
                     <IconButton onClick={handleToggleSearch} >
                           <Search style={{color:'white',}}/>
                     </IconButton>
@@ -49,22 +55,26 @@ function MainHeader(props) {
                     <Collapse in={dropMenu} className={classes.collaps}>
                         <ul className={classes.dropMenu}>
                             <li className={classes.link}>
-                                <Link to='/' style={{textDecoration:'none',color:'#0f5731'}} >Danh mục sách</Link>
+                                <Link to='/' style={{textDecoration:'none',color:'#0f5731'}} 
+                                  >Danh mục sách</Link>
                             </li>
                             <li className={classes.link}>
-                                <Link to='/' style={{textDecoration:'none',color:'#0f5731'}} >Sách bán chạy</Link>
+                                <Link to='/sach-ban-chay' style={{textDecoration:'none',color:'#0f5731'}} 
+                                  >Sách bán chạy</Link>
                             </li>
                             <li className={classes.link}>
-                                <Link to='/' style={{textDecoration:'none',color:'#0f5731'}} >Chương trình khuyến mãi</Link>
+                                <Link to='/chuong-trinh-khuyen-mai' style={{textDecoration:'none',color:'#0f5731'}} 
+                                  >Chương trình khuyến mãi</Link>
                             </li>
                             <li className={classes.link}>
-                                <Link to='/' style={{textDecoration:'none',color:'#0f5731'}} >Kiểm tra đơn hàng</Link>
+                                <Link to='/kiem-tra-don-hang' style={{textDecoration:'none',color:'#0f5731'}} 
+                                  >Kiểm tra đơn hàng</Link>
                             </li>
                             <li className={classes.link}>
                                 <Link 
-                                  to={user.name ? '/': '/register'}
+                                  to={user.name ? '/profile': '/register'}
                                   style={{textDecoration:'none',color:'#0f5731'}}
-                                //   onClick={} 
+                                  onClick={user.name ? null : ()=>setRegister(!register)} 
                                 >
                                     {user.name ? user.name: 'Đăng ký'}
                                 </Link>
@@ -73,13 +83,18 @@ function MainHeader(props) {
                                 <Link 
                                   to={user.name ? '/': '/login'} 
                                   style={{textDecoration:'none',color:'#0f5731'}}
-                                  //   onClick={} 
+                                  onClick={user.name? ()=>dispatch(logOut()): ()=>setLogin(!login)}
                                 >
-                                    {user.name ? user.name: 'Đăng nhập'}
+                                    {user.name ? 'Thoát': 'Đăng nhập'}
                                 </Link>
                             </li>
                         </ul>
                     </Collapse>
+                    {/* Store icon */}
+                    <Box position='fixed' zIndex={999} bottom={70} style={{cursor:'pointer',}}
+                        right={0} onClick={()=>setOpenCart(!openCart)}>
+                        <img src={cartImg} alt=""/>
+                    </Box>
                 </Grid>
                 <Grid item xs={12}>
                     <Collapse in={searchMobile} className={classes.collaps}>
@@ -102,8 +117,9 @@ function MainHeader(props) {
                    </Link>
                 </Grid>
                 <Grid className={classes.root} item xs={6}>
-                    
-                    <Box position='absolute' bottom={70} right={0} >
+                    {/* Cart */}
+                    <Box position='absolute' bottom={70} style={{cursor:'pointer',}}
+                        right={0} onClick={()=>setOpenCart(!openCart)}>
                         <img src={cartImg} alt=""/>
                     </Box>
                     <Box className={classes.formInput}>
@@ -114,6 +130,9 @@ function MainHeader(props) {
                     </Box>
                 </Grid>
             </Hidden>
+            <RegisterForm open={register} onClose={()=>setRegister(!register)}/>
+            <LoginForm open={login} onClose={()=>setLogin(!login)}/>
+            <Store open={openCart} onClose={()=>setOpenCart(!openCart)} />
         </Grid>
         
     );

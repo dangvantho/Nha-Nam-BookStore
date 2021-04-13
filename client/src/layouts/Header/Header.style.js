@@ -27,6 +27,7 @@ const headerStyle=makeStyles((theme)=>({
         alignItems:'flex-end',
         [theme.breakpoints.up('sm')]:{
             height: 150,
+            width:'100%'
         },
     },
     navbar:{

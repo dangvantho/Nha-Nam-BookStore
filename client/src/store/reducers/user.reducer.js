@@ -1,13 +1,14 @@
 import {createSlice,createAsyncThunk} from '@reduxjs/toolkit'
 import axios from 'axios'
+import { DOMAIN } from '../../constanes'
 
-const domain='http://localhost:8080'
+// const DOMAIN='http://localhost:8080'
 // Register
 export const fetchUser=createAsyncThunk('user/createUser',async (data)=>{
     const res= await axios(
         {
             method: 'post',
-            url: domain+'/post/user',
+            url: DOMAIN+'/post/user',
             data: data,
           }
     )
@@ -18,7 +19,7 @@ export const fetchLogin=createAsyncThunk('user/login',async (data)=>{
     const res= await axios(
         {
             method:'post',
-            url: domain+'/post/login',
+            url: DOMAIN+'/post/login',
             data: data,
         }
     )
@@ -29,7 +30,16 @@ export const fetchAccessToken=createAsyncThunk('user/accesstoken',async (accesst
     const res=await axios({
         method: 'post',
         headers:{'Content-Type': 'application/x-www-form-urlencoded', accesstoken},
-        url:domain+'/post/auth',
+        url:DOMAIN+'/post/auth',
+    })
+    return res.data
+})
+// Update cart
+export const updateCart= createAsyncThunk('user/updateCart',async(data)=>{
+    const res = await axios({
+        method:'PUT',
+        url:DOMAIN+'/post/user/updateCart',
+        data: data,
     })
     return res.data
 })
@@ -64,7 +74,10 @@ const userSlice=createSlice({
             if(res.errs){
                 state.formErr= res.errs
             } else{
-                const {name, isAdmin, cart, password,accesstoken}= res
+                let {name, isAdmin, cart, password,accesstoken}= res
+                cart.sort((a,b)=>{
+                    return new Date(a.createAt) - new Date(b.createAt)
+                })
                 document.cookie=`accesstoken=${accesstoken}`
                 return ({name, isAdmin, cart, password, accesstoken, formErr:null})
             }
@@ -75,10 +88,19 @@ const userSlice=createSlice({
                 document.cookie='accesstoken='
                 return ({name:null, isAdmin: false, password:null, cart:[], formErr: null, accesstoken: null})
             } else{
-                const {name, isAdmin, cart, password, accesstoken}= res
+                let {name, isAdmin, cart, password, accesstoken}= res
+                cart.sort((a,b)=>{
+                    return new Date(a.createAt) - new Date(b.createAt)
+                })
                 document.cookie=`accesstoken=${accesstoken}`
                 return ({name, isAdmin, cart, password, accesstoken, formErr:null})
             }
+        },
+        [updateCart.fulfilled]:(state,action)=>{
+            state.cart=action.payload.cart
+            state.cart.sort((a,b)=>{
+                return new Date(a.createAt) - new Date(b.createAt)
+            })
         }
     }
 })
