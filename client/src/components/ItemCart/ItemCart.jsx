@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {connect,useDispatch} from 'react-redux'
 import {updateCart} from '../../store/reducers/user.reducer'
 import {updateCartSession} from '../../store/reducers/sessionUser.reducer'
+import {fetchOneBook} from '../../store/reducers/book.reducer'
+import axios from 'axios'
+import {DOMAIN} from '../../constanes'
 import { Box } from '@material-ui/core';
 import useStyles from './styleItemCart'
 import {Link} from 'react-router-dom'
@@ -11,20 +14,20 @@ ItemCart.propTypes = {
     
 };
 
-
 function ItemCart(props) {
     const classes=useStyles()
-    let {book,user,session,onClose,books}=props
-    let image
-    if(books.book._id===book.idBook){
-        image=books.book.image
-    } else {
-        let tam=[]
-        for(let key in books.type){
-            tam=tam.concat(books.type[key])
-        }
-        image= tam.find(value=>value._id===book.idBook).image
-    }
+    const dispatch=useDispatch()
+    let {book,user,session}=props
+    let [image,setImage]=useState('')
+    useEffect(()=>{
+        
+               axios.get(`${DOMAIN}/book/${book.idBook}`)
+               .then(res=>{
+                   console.log(res.data)
+                   setImage(res.data.image)
+               })
+    },[])
+    
     const [count,setCount]=useState(book.count)
     const handleSubstractCount=()=>{
         if(count<1) {
@@ -41,7 +44,6 @@ function ItemCart(props) {
         setCount(count+1)
         handleAddToCart(count+1)
     }
-    const dispatch=useDispatch()
     function handleAddToCart(count){
         let data
         let cart

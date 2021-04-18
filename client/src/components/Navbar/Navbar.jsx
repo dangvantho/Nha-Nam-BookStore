@@ -23,20 +23,24 @@ function Navbar(props) {
                     </ListItem>
                     <List className={classes.items}>
                         <ListItem className={classes.item} >
-                          <Link className={classes.textLink} style={{lineHeight:'30px',}} to='/van-hoc-viet-nam' >
+                          <Link className={classes.textLink} style={{lineHeight:'30px',}} to='/the-loai/van-hoc-viet-nam' >
                               Văn học Việt Nam</Link>
                         </ListItem>
                         <ListItem className={classes.item}>
-                          <Link className={classes.textLink} style={{lineHeight:'30px',}} to='/van-hoc-nuoc-ngoai' >
+                          <Link className={classes.textLink} style={{lineHeight:'30px',}} to='/the-loai/van-hoc-nuoc-ngoai' >
                               Văn học nước ngoài</Link>
                         </ListItem>
                         <ListItem className={classes.item}>
-                          <Link className={classes.textLink} style={{lineHeight:'30px',}} to='/sach-thieu-nhi' >
+                          <Link className={classes.textLink} style={{lineHeight:'30px',}} to='/the-loai/sach-thieu-nhi' >
                               Sách thiếu nhi</Link>
                         </ListItem>
                         <ListItem className={classes.item}>
-                          <Link className={classes.textLink} style={{lineHeight:'30px',}} to='/sach-khoa-hoc' >
+                          <Link className={classes.textLink} style={{lineHeight:'30px',}} to='/the-loai/sach-khoa-hoc' >
                               Khoa học</Link>
+                        </ListItem>
+                        <ListItem className={classes.item}>
+                          <Link className={classes.textLink} style={{lineHeight:'30px',}} to='/the-loai/tieu-thuyet' >
+                              Tiểu thuyết</Link>
                         </ListItem>
                     </List>
                 </List>
@@ -46,7 +50,7 @@ function Navbar(props) {
                     <ListItem  button className={classes.listItem}>
                         { isAdmin? 
                            <Link className={classes.textLink} to='/them-trang-thong-bao' >Thêm trang thông báo</Link> :
-                           <Link className={classes.textLink} to='/sach-ban-chay' >Sách bán chạy</Link>
+                           <Link className={classes.textLink} to='/the-loai/sach-ban-chay' >Sách bán chạy</Link>
                         }
                     </ListItem>
                 </List>
@@ -56,7 +60,7 @@ function Navbar(props) {
                     <ListItem  button className={classes.listItem}>
                         { isAdmin? 
                            <Link className={classes.textLink} to='/book' >Thêm/Chỉnh sửa sách</Link> :
-                           <Link className={classes.textLink} to='/chuong-trinh-khuyen-mai' >Chương trình khuyến mại</Link>
+                           <Link className={classes.textLink} to='/pages/chuong-trinh-khuyen-mai' >Chương trình khuyến mại</Link>
                         }
                     </ListItem>
                 </List>

@@ -44,6 +44,7 @@ const booksSlice=createSlice({
             foreign:[],
             novel:[],
             science:[],
+            bestSeller:[],
         },
         formErr:null,
         book:'',

@@ -58,11 +58,11 @@ function HeaderTop(props) {
                           </ListItem>
                           <Box display='flex' justifyContent='center' paddingLeft={2} paddingRight={2} alignContent='center'>|</Box>
                           <ListItem className={classes.listItems}>
-                              <Link className={classes.link} to="">Lịch sử giao dịch</Link>
+                              <Link className={classes.link} to="/lich-su-giao-dich">Lịch sử giao dịch</Link>
                           </ListItem>
                           <Box display='flex' justifyContent='center' paddingLeft={2} paddingRight={2} alignContent='center'>|</Box>
                           <ListItem className={classes.listItems}>
-                              <Link className={classes.link} to="">Tra cứu đơn hàng</Link>
+                              <Link className={classes.link} to="/tra-cuu-don-hang">Tra cứu đơn hàng</Link>
                           </ListItem>
                         </Box>
                     </List>

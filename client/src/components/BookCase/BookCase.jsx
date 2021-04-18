@@ -83,7 +83,7 @@ function BookCase(props) {
     return (
         <React.Fragment>
             <div className={classes.pageTitle}>
-                <Link to={`/${type.title}`} className={classes.link} >
+                <Link to={`/the-loai/${type.link}`} className={classes.link} >
                     <div className={classes.imageTitle}>{type.title}</div>
                 </Link>
             </div>

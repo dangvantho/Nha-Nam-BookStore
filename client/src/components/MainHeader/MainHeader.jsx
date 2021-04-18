@@ -9,7 +9,7 @@ import logoImg from '../../assets/images/logo.png'
 import {logOut} from '../../store/reducers/user.reducer'
 import RegisterForm from '../RegisterForm'
 import LoginForm from '../LoginForm'
-
+import Payment from '../Payment/Payment'
 import {Link} from 'react-router-dom'
 import Store from '../Store/Store';
 
@@ -24,6 +24,7 @@ function MainHeader(props) {
     const [openCart,setOpenCart]=useState(false)
     const [login,setLogin]=useState(false)
     const [register,setRegister]=useState(false)
+    const [openPayment,setOpenPayment]=useState(false)
     function handleToggleMenu(){
         if(searchMobile) {
             setSearchMobile(false)
@@ -67,7 +68,7 @@ function MainHeader(props) {
                                   >Chương trình khuyến mãi</Link>
                             </li>
                             <li className={classes.link}>
-                                <Link to='/pages/kiem-tra-don-hang' style={{textDecoration:'none',color:'#0f5731'}} 
+                                <Link to='/tra-cuu-don-hang' style={{textDecoration:'none',color:'#0f5731'}} 
                                   >Kiểm tra đơn hàng</Link>
                             </li>
                             <li className={classes.link}>
@@ -132,7 +133,14 @@ function MainHeader(props) {
             </Hidden>
             <RegisterForm open={register} onClose={()=>setRegister(!register)}/>
             <LoginForm open={login} onClose={()=>setLogin(!login)}/>
-            <Store open={openCart} onClose={()=>setOpenCart(!openCart)} />
+            <Store 
+               open={openCart} onClose={()=>setOpenCart(!openCart)} 
+               openPayment={()=>{
+                   setOpenCart(false)
+                   setOpenPayment(!openPayment)
+               }}/>
+            <Payment open={openPayment} onClose={()=>setOpenPayment(!openPayment)} startStep={0} />  
+            
         </Grid>
         
     );

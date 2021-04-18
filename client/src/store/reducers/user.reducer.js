@@ -58,6 +58,9 @@ const userSlice=createSlice({
         logOut:()=>{
             document.cookie='accesstoken='
             return ({name:null, isAdmin: false, password:null, cart:[], formErr:null, accesstoken:null})
+        },
+        resetCart: (state,action)=>{
+            state.cart=[]
         }
     },
     extraReducers:{
@@ -105,6 +108,6 @@ const userSlice=createSlice({
         }
     }
 })
-export const {checkUser,logOut}=userSlice.actions
+export const {checkUser,logOut,resetCart}=userSlice.actions
 
 export default userSlice.reducer

@@ -1,23 +1,33 @@
 export const typesBook=[
     { 
         type:'literaryVietNam',
-        title: 'Văn học Việt Nam'
+        title: 'Văn học Việt Nam',
+        link:'van-hoc-viet-nam'
     },
     { 
         type:'children',
-        title: 'Sách thiếu nhi'
+        title: 'Sách thiếu nhi',
+        link:'sach-thieu-nhi',
     },
     { 
         type:'foreign',
-        title: 'Sách ngoại văn'
+        title: 'Sách ngoại văn',
+        link:'van-hoc-nuoc-ngoai'
     },
     { 
         type:'novel',
-        title: 'Tiểu thuyết'
+        title: 'Tiểu thuyết',
+        link:'tieu-thuyet',
     },
     { 
         type:'science',
-        title: 'Sách khoa học'
+        title: 'Sách khoa học',
+        link:'sach-khoa-hoc',
+    },
+    {
+        type:'bestSeller',
+        title:'Sách bán chạy',
+        link:'sach-ban-chay'
     },
 ]
 export const DOMAIN= 'http://localhost:8080'

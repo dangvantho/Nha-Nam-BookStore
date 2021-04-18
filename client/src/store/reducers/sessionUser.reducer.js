@@ -37,7 +37,11 @@ const sessionSlice=createSlice({
         sessionId: localStorage.getItem('sessionId')||null,
         cart:[],
     },
-    reducers:{},
+    reducers:{
+        resetCartSession: (state,action)=>{
+            state.cart=[]
+        }
+    },
     extraReducers:{
         [fetchCart.fulfilled]:(state,action)=>{
             state.cart=action.payload.cart
@@ -65,4 +69,5 @@ const sessionSlice=createSlice({
         }
     },
 })
- export default sessionSlice.reducer
+export const {resetCartSession}=sessionSlice.actions
+export default sessionSlice.reducer

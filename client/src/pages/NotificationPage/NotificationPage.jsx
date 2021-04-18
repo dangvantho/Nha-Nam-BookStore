@@ -21,6 +21,11 @@ const useStyles=makeStyles(theme=>({
     },
 }))
 function NotificationPage(props) {
+    window.scrollTo({
+        top: 0,
+        left:0,
+        behavior: "smooth",
+    })
     const classesCommon= commonStyles()
     const classes= useStyles()
     const {notifyPages}=props
@@ -29,14 +34,14 @@ function NotificationPage(props) {
     let title= useParams()
     title= pages.find(value=>value.title===title.title)
     useEffect(()=>{
-        dispatch(fetchNotifyPages(title.title))
-    },[title.title])
+        if(title) dispatch(fetchNotifyPages(title.title))
+    },[title])
     return (
         <div className={classesCommon.root}>
             <div className={classesCommon.container}>
                 <Box className={classes.root}>
                     <Box fontSize='20px' fontWeight='600' marginBottom={2} >
-                        {title.name}
+                        { title ?  title.name: 'Page not found!!!'}
                     </Box>
                     <pre className={classes.content}>{notifyPages.content}</pre>
                 </Box>
