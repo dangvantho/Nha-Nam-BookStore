@@ -12,11 +12,13 @@ import NotificationPage from './pages/NotificationPage/NotificationPage';
 import Category from './pages/Category/Category'
 import PaymentHistory from './pages/Payment History/PaymentHistory';
 import CheckOrder from './pages/CheckOrder/CheckOrder';
+import Loading from './layouts/Loading/Loading';
 
 function App() {
   return (
     <Router>
       <div className="App">
+        <Loading/>
         <Header/>
         <Switch>
           

@@ -19,16 +19,28 @@ const historySlice= createSlice({
     initialState:{
         user: null,
         id: null,
+        isPending: false,
     },
     extraReducers:{
+        [postHistory.pending]:state=>{
+            state.isPending= true
+        },
         [postHistory.fulfilled]:(state,action)=>{
-
+            state.isPending= false
+        },
+        [fetchByUser.pending]:state=>{
+            state.isPending= true
         },
         [fetchByUser.fulfilled]:(state,action)=>{
             state.user=action.payload
+            state.isPending= false
+        },
+        [fetchHistoryById.pending]: state=>{
+            state.isPending= true
         },
         [fetchHistoryById.fulfilled]:(state,action)=>{
             state.id=action.payload
+            state.isPending= false
         }
     },
 })

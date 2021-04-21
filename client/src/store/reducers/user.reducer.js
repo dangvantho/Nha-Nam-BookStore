@@ -52,7 +52,7 @@ const userSlice=createSlice({
         cart:[],
         formErr:null,
         accesstoken: document.cookie.split(';')[0].split('=')[1] || null,
-        isLoading:false,
+        isPending:false,
     },
     reducers:{
         checkUser:(state,action)=>state,
@@ -69,32 +69,32 @@ const userSlice=createSlice({
     },
     extraReducers:{
         [fetchUser.pending]:(state,action)=>{
-            state.isLoading=true
+            state.isPending=true
         },
         [fetchUser.fulfilled]: (state,action)=>{
             const res=action.payload
             if(res.errs){
                 state.formErr=res.errs
-                state.isLoading=false
+                state.isPending=false
             } else{
-                state.isLoading=false
+                state.isPending=false
             }
         },
         [fetchLogin.pending]:state=>{
-            state.isLoading=true
+            state.isPending=true
         },
         [fetchLogin.fulfilled]:(state,action)=>{
             const res=action.payload
             if(res.errs){
                 state.formErr= res.errs
-                state.isLoading=false
+                state.isPending=false
             } else{
                 let {name, isAdmin, cart, password,accesstoken}= res
                 cart.sort((a,b)=>{
                     return new Date(a.createAt) - new Date(b.createAt)
                 })
                 document.cookie=`accesstoken=${accesstoken};path='/';`
-                return ({name, isAdmin, cart, password, accesstoken, formErr:null, isLoading:false})
+                return ({name, isAdmin, cart, password, accesstoken, formErr:null, isPending:false})
             }
         },
         [fetchAccessToken.fulfilled]:(state,action)=>{

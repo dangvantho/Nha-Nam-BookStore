@@ -24,11 +24,15 @@ const notifyPages= createSlice({
     initialState:{
         title:'',
         content: '',
+        isPending: false,
     },
     extraReducers:{
+        [fetchNotifyPages.pending]: state=>{
+            state.isPending= true
+        },
         [fetchNotifyPages.fulfilled]:(state,action)=>{
             const {title,content}=action.payload
-            return ({title,content})
+            return ({title,content,isPending: false})
         }
     },
 })

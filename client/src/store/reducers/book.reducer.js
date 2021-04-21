@@ -48,7 +48,7 @@ const booksSlice=createSlice({
         },
         formErr:null,
         book:'',
-        isLoading:false,
+        isPending:false,
         filterBooks:{},
     },
     reducers:{
@@ -57,13 +57,16 @@ const booksSlice=createSlice({
         }
     },
     extraReducers:{
+        // Add new book
+        [fetchAddBook.pending]: state=>{
+            state.isPending= true
+        },
         [fetchAddBook.fulfilled]:(state,action)=>{
             const res=action.payload
+            state.isPending=false
             if(res.errs) state.formErr=res.errs
-            else{
-                console.log(res)
-            }
         },
+        // Get books have the same category
         [fetchBook.pending]:(state,action)=>{
             const {type}=action.meta.arg
             state.type[type]=null
@@ -76,20 +79,27 @@ const booksSlice=createSlice({
                 const info={list: data, type}
             }
         },
-        // [fetchOneBook.pending]:(state,action)=>state.isLoading=true,
+        // get one book when view information book
+        [fetchOneBook.pending]:state=>{
+            state.isPending= true
+        },
         [fetchOneBook.fulfilled]:(state,action)=>{
             const res=action.payload
+            state.isPending=false
             if(res.err) {
                 state.book=res.err
-                state.isLoading=false
             }
             else {
                 state.book=res
-                state.isLoading=false
             }
+        },
+        // Fetch books have the same filter
+        [fetchByFilter.pending]:state=>{
+            state.isPending= true
         },
         [fetchByFilter.fulfilled]:(state,action)=>{
             const res= action.payload
+            state.isPending= false
             const {data,key}=res
             state.filterBooks[key]=data
         }

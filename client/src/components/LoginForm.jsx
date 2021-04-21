@@ -10,7 +10,6 @@ const useStyles=makeStyles(theme=>({
     form:{
         width:300,
         backgroundColor:theme.palette.common.white,
-        position:'relative',
     },
     input:{
         color: theme.palette.common.white,
@@ -71,18 +70,19 @@ function LoginForm(props) {
         disableEnforceFocus={true}
       >
           <Box 
-            display='flex' justifyContent='center'
+            display='flex' justifyContent='center' position='relative'
             alignItems='center' bgcolor='white' mt={6}
             height={300} pl={4} pr={4} 
             borderRadius={4}
           >
             
             <Loading loading={loading} />
-            <form onSubmit={handleSubmit} className={classes.form} >
-              <Box 
+            <Box 
                 color='red' position='absolute' style={{cursor:'pointer'}}
-                top='-27px' right='-18px' onClick={handleClose}
+                top='4px' right='14px' onClick={handleClose}
               >x</Box>
+            <form onSubmit={handleSubmit} className={classes.form} >
+              
               <Box textAlign='center' color='#757575' fontSize={18}> Đăng nhập</Box>
               {errs && errs.map(err=>(
                 <Box color='red' m='10px 0'>{err}</Box>

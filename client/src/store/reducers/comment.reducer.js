@@ -39,8 +39,12 @@ const comments=createSlice({
         }
     },
     extraReducers:{
+        [fetchCommentOfBook.pending]: state=>{
+            state.isPending= true
+        },
         [fetchCommentOfBook.fulfilled]:(state,action)=>{
             state.data=action.payload
+            state.isPending= false
         },
         [postComment.fulfilled]:(state)=>{
             state.isPending=false

@@ -16,16 +16,30 @@ export const postAddress= createAsyncThunk('address/postAddress',async(data)=>{
 })
 const addressSlice=createSlice({
     name:'address',
-    initialState: {},
+    initialState: {
+        isPending: false,
+    },
     reducers:{
         sessionAddress:(state,action)=> action.payload
     },
     extraReducers:{
+        [fetchAddress.pending]:state=>{
+            state.isPending=true
+        },
         [fetchAddress.fulfilled]:(state,action)=>{
-            return action.payload
+            return ({
+                ...action.payload,
+                isPending: false,
+            })
+        },
+        [postAddress.pending]: state=>{
+            state.isPending=true
         },
         [postAddress.fulfilled]:(state,action)=>{
-            return action.payload
+            return ({
+                ...action.payload,
+                isPending: false,
+            })
         }
 
     }
