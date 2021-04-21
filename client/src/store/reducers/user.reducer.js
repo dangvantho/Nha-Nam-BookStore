@@ -51,39 +51,50 @@ const userSlice=createSlice({
         password:null,
         cart:[],
         formErr:null,
-        accesstoken: document.cookie.split('=')[1] || null,
+        accesstoken: document.cookie.split(';')[0].split('=')[1] || null,
+        isLoading:false,
     },
     reducers:{
         checkUser:(state,action)=>state,
         logOut:()=>{
             document.cookie='accesstoken='
-            return ({name:null, isAdmin: false, password:null, cart:[], formErr:null, accesstoken:null})
+            return ({ 
+                       name:null, isAdmin: false, password:null, 
+                       cart:[], formErr:null, accesstoken:null,
+                    })
         },
         resetCart: (state,action)=>{
             state.cart=[]
         }
     },
     extraReducers:{
+        [fetchUser.pending]:(state,action)=>{
+            state.isLoading=true
+        },
         [fetchUser.fulfilled]: (state,action)=>{
             const res=action.payload
             if(res.errs){
                 state.formErr=res.errs
+                state.isLoading=false
             } else{
-                console.log(res)
+                state.isLoading=false
             }
+        },
+        [fetchLogin.pending]:state=>{
+            state.isLoading=true
         },
         [fetchLogin.fulfilled]:(state,action)=>{
             const res=action.payload
             if(res.errs){
                 state.formErr= res.errs
+                state.isLoading=false
             } else{
                 let {name, isAdmin, cart, password,accesstoken}= res
                 cart.sort((a,b)=>{
                     return new Date(a.createAt) - new Date(b.createAt)
                 })
-                console.log(accesstoken)
-                document.cookie=`accesstoken=${accesstoken}`
-                return ({name, isAdmin, cart, password, accesstoken, formErr:null})
+                document.cookie=`accesstoken=${accesstoken};path='/';`
+                return ({name, isAdmin, cart, password, accesstoken, formErr:null, isLoading:false})
             }
         },
         [fetchAccessToken.fulfilled]:(state,action)=>{
@@ -96,7 +107,7 @@ const userSlice=createSlice({
                 cart.sort((a,b)=>{
                     return new Date(a.createAt) - new Date(b.createAt)
                 })
-                document.cookie=`accesstoken=${accesstoken}`
+                document.cookie=`accesstoken=${accesstoken};path='/';`
                 return ({name, isAdmin, cart, password, accesstoken, formErr:null})
             }
         },

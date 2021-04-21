@@ -1,18 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import {connect,useDispatch} from 'react-redux'
 import {updateCart} from '../../store/reducers/user.reducer'
 import {updateCartSession} from '../../store/reducers/sessionUser.reducer'
-import {fetchOneBook} from '../../store/reducers/book.reducer'
 import axios from 'axios'
 import {DOMAIN} from '../../constanes'
 import { Box } from '@material-ui/core';
 import useStyles from './styleItemCart'
-import {Link} from 'react-router-dom'
 
-ItemCart.propTypes = {
-    
-};
+
 
 function ItemCart(props) {
     const classes=useStyles()

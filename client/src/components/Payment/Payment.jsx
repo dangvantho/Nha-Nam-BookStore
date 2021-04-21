@@ -45,6 +45,16 @@ const useStyles= makeStyles(theme=>({
       background: '#1da1f2',
       color: '#fff',
       cursor:'pointer',
+      fontSize: 16,
+    },
+    inputFinal:{
+      marginTop: 25,
+      border:'none',
+      padding: '8px 20px',
+      borderRadius: 6,
+      background: '#1da1f2',
+      color: '#fff',
+      cursor:'pointer',
     },
 }))
 function TabPanel(props) {
@@ -146,14 +156,14 @@ function Payment(props) {
                         </Box>
                         {formAddress==='new' ? (
                           <form ref={form_1} onSubmit={handleSubmit}>
-                              <TextField className={classes.textField}  variant='outlined' 
+                              <TextField className={classes.textField}  variant='outlined' required
                                 label='Tên' name='name' fullWidth  />
-                              <TextField className={classes.textField}  variant='outlined'
+                              <TextField className={classes.textField}  variant='outlined' required
                                 label='Số điện thoại' name='phone' fullWidth  />
-                              <TextField className={classes.textField}  variant='outlined'
+                              <TextField className={classes.textField}  variant='outlined' required
                                 label='Địa chỉ: ' name='address'  fullWidth />
                               <Box display='flex' marginTop='30px' borderTop='1px solid #ccc'>
-                                <input className={classes.inputSubmit} type="submit" value='Next'/>  
+                                <input className={classes.inputSubmit} type="submit" value='Tiếp theo'/>  
                               </Box>  
                           </form>
                         ) : (
@@ -185,10 +195,10 @@ function Payment(props) {
                         </RadioGroup>
                         <Box display='flex' justifyContent='space-between' 
                             marginTop='30px' borderTop='1px solid #ccc'>
-                          <div className={classes.inputSubmit} onClick={()=>setStep(0)} >
+                          <div className={classes.inputFinal} onClick={()=>setStep(0)} >
                              Quay lại
                           </div>      
-                          <div className={classes.inputSubmit} onClick={()=>setStep(2)} >
+                          <div className={classes.inputFinal} onClick={()=>setStep(2)} >
                              Tiếp theo
                           </div>  
                         </Box>
@@ -207,10 +217,10 @@ function Payment(props) {
                       </Box>
                       <Box display='flex' justifyContent='space-between' 
                           marginTop='30px' borderTop='1px solid #ccc'>
-                        <div className={classes.inputSubmit} onClick={()=>setStep(1)} >
+                        <div className={classes.inputFinal} onClick={()=>setStep(1)} >
                            Quay lại
                         </div>      
-                        <div className={classes.inputSubmit} onClick={handlePayment } >
+                        <div className={classes.inputFinal} onClick={handlePayment } >
                            Hoàn thành
                         </div>  
                       </Box>

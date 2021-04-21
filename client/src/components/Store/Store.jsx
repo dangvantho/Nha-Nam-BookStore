@@ -3,7 +3,8 @@ import {connect,useDispatch} from 'react-redux'
 import {fetchAddress} from '../../store/reducers/address.reducer'
 
 import PropTypes from 'prop-types';
-import { Box, Modal } from '@material-ui/core';
+import { Box, IconButton, Modal } from '@material-ui/core';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import useStyles from './styleStore'
 import ItemCart from '../ItemCart/ItemCart';
 import {Link} from 'react-router-dom'
@@ -33,10 +34,13 @@ function Store(props) {
                 <Box className={classes.container}>
                     {/* Title */}
                     <Box className={classes.title}>
-                        <Box bgcolor='green' color='white' borderRadius='5px 5px 0 0'
+                        <Box  color='white' borderRadius='5px 5px 0 0'
                            padding='12px 16px' fontWeight='bold' fontSize='18px'>
                             Giỏ hàng
                         </Box>
+                        <IconButton onClick={()=>onClose()}>
+                            <HighlightOffIcon className={classes.closeIcon}/>
+                        </IconButton>
                     </Box>
                     {/* Content */}
                     <Box >

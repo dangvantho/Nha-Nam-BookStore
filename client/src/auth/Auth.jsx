@@ -1,11 +1,6 @@
 import React from 'react';
 import {Redirect} from 'react-router-dom'
 import {useDispatch,connect} from 'react-redux'
-import PropTypes from 'prop-types';
-
-Auth.propTypes = {
-    
-};
 
 function Auth(props) {
     const {accesstoken,isAdmin}=props

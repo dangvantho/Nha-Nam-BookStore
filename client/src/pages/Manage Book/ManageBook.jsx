@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import {connect, useDispatch} from 'react-redux'
-import {Link} from 'react-router-dom'
 import {makeStyles} from '@material-ui/core/styles'
 import {Box, TextField, TextareaAutosize} from '@material-ui/core'
 import commonStyle from '../styleComon'
@@ -95,11 +94,11 @@ function ManageBook(props) {
                         </span>
                         <span style={currentForm==2 ? {opacity:  0.8}: {}} 
                           className={classes.link} onClick={()=>handleChangeForm(2)}>
-                            Thêm sách
+                            Quản lý sách
                         </span>
                         <span style={currentForm==3 ? {opacity:  0.8}: {}} 
                           className={classes.link} onClick={()=>handleChangeForm(3)}>
-                            Thêm sách
+                            Chỉnh sửa
                         </span>
                     </Box>
                     <Box>
@@ -130,11 +129,15 @@ function ManageBook(props) {
                                   type='text' value={typeBook} 
                                   onChange={handleChangeTypeBook} className={classes.inputMedium}
                                   SelectProps={{ native:true,}} >
-                                    {typesBook.map((option) => (
-                                        <option key={option.title} value={option.type}>
-                                           {option.title}
-                                        </option>
-                                    ))}
+                                    {typesBook.map((option) => {
+                                        if(option.link!='sach-ban-chay'){
+                                            return (
+                                                <option key={option.title} value={option.type}>
+                                                   {option.title}
+                                                </option>
+                                            )
+                                        }
+                                    })}
                                 </TextField>
                                 <TextField 
                                   variant='outlined' name='pages' label='Số trang' fullWidth

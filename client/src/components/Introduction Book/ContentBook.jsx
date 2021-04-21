@@ -16,14 +16,18 @@ function ContentBook(props) {
     const dispatch=useDispatch()
     const [count,setCount]=useState(1)
     const [openStore,setOpenStore]=useState(false)
+    const [notify,setNotify]=useState(false)
     let price=book.money
     price=Math.ceil((price.split(',')[0]-0)*0.8)+',000'
-    function handleChageCount(e){
-        let value=e.target.value-0
-        setCount(value)
+    function handleSubtractCount(){
+        if(count>1) setCount(count-1) 
     }
     function handleAddToCart(){
         let data
+        setNotify(true)
+        setTimeout(() => {
+            setNotify(false)
+        }, 2000);
         if(user.name){
             userCart= userCart.filter(value=>value.idBook!==book._id)
             data={
@@ -90,13 +94,15 @@ function ContentBook(props) {
                         {/* Sale of price */}
                         <div className={classes.salePrice}>Giá Nhã Nam: <span>{price}đ</span> (Đã tính VAT)</div>
                         {/* count */}
-                        <Box fontSize='14px' color='#444' paddingTop='27px' >
-                            <Box display='inline-block' paddingRight='13px'>SỐ LƯỢNG: </Box>
-                            <input  
-                                type='number' onChange={handleChageCount} 
-                                value={count} min={1} step={1}
-                                className={classes.countInput}
-                            />
+                        <Box display='flex' fontSize='14px' color='#444' paddingTop='27px' alignItems='center' >
+                            <Box  paddingRight='13px'>SỐ LƯỢNG: </Box>
+                            <Box display='flex'>
+                                <Box onClick={handleSubtractCount} style={count==1 ? {cursor:'no-drop'} : {}}
+                                   className={`${classes.countBtn} ${classes.countInput}`} >-</Box>
+                                <Box className={classes.countInput}>{count}</Box>
+                                <Box onClick={()=>setCount(count+1)} 
+                                   className={`${classes.countBtn} ${classes.countInput}`}>+</Box>
+                            </Box>
                         </Box>
                         {/* Buy */}
                         <Box padding='20px 0'  >
@@ -126,6 +132,10 @@ function ContentBook(props) {
                 <Comment idBook={book._id}/>
             </Grid>
             <Store open={openStore} onClose={()=>setOpenStore(!openStore)}/>
+            {/* Add amination when add to cart */}
+            {notify && (
+                <div className={classes.addToCart}>Thêm sách vào giỏ hàng thành công</div>
+            )}
         </Grid>
     );
 }

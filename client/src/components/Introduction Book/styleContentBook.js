@@ -81,12 +81,19 @@ const useStyles=makeStyles(theme=>({
     },
     countInput:{
         border:'none',
-        lineHeight: '30px',
-        width: 40,
+        lineHeight: '20px',
+        width: 20,
         textAlign:'center',
         fontSize: 14,
-        color:'red',
+        color:'black',
         outline:'none',
+        background:'white',
+        borderTop:'1px solid #ccc',
+        borderBottom:'1px solid #ccc',
+    },
+    countBtn:{
+        border:'1px solid #ccc',
+        cursor:'pointer'
     },
     imageButton:{
         marginBottom:2,
@@ -99,6 +106,16 @@ const useStyles=makeStyles(theme=>({
     },
     sameKindOfBook:{
         marginTop:20,
+    },
+    addToCart:{
+        position:'fixed',
+        top: 60,
+        right: 40,
+        padding:'12px 24px',
+        background:'green',
+        borderRadius: 5,
+        color:'white',
+        animation:'addToCart 0.5s ease-in-out',
     },
 }))
 export default useStyles

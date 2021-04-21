@@ -25,9 +25,11 @@ function BookCase(props) {
     let listBooks=books.type[type.type]
     const dispatch=useDispatch()
     useEffect(()=>{
-        dispatch(fetchBook({...type}))
+        if(books.type[type.type].length==0){
+            dispatch(fetchBook({...type}))
+        }
         // dispatch(fetchImageBook({list: listBooks, type: type.type}))
-    },[])
+    },[type])
     // Tranform data image to string image
     function transformDataToImage(book){
         let image= book.image

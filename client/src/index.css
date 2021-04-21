@@ -29,6 +29,28 @@ code {
     opacity: 0;
   }
 }
+@keyframes addToCart{
+  0% {
+    opacity: 0;
+    right: 0;
+  }
+  25% {
+    opacity: 0.5;
+    right: 10;
+  }
+  50% {
+    opacity: 1;
+    right: 20;
+  }
+  75%{
+    opacity: 0.5;
+    right: 30;
+  }
+  100%{
+    opacity: 1;
+    right: 40;
+  }
+}
 @keyframes slide{
   from{
     right: -100%;

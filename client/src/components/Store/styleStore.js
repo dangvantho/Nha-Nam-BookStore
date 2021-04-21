@@ -24,6 +24,12 @@ const useStyles= makeStyles(theme=>({
         borderTopLeftRadius: 5,
         borderTopRightRadius: 5,
         background:'#fff',
+        display:'flex',
+        justifyContent:'space-between',
+        background:'green',
+    },
+    closeIcon:{
+        color:'red',
     },
     totalPrice:{
         color: 'red',

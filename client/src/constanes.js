@@ -30,8 +30,8 @@ export const typesBook=[
         link:'sach-ban-chay'
     },
 ]
-export const DOMAIN= 'http://localhost:8080'
-// 'https://book-store-server-vn.herokuapp.com/'
+export const DOMAIN= 'https://book-store-server-vn.herokuapp.com'
+// 'https://book-store-server-vn.herokuapp.com'
 //  'http://localhost:8080'
 // notify pages
 export const pages=[
