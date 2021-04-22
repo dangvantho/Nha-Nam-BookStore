@@ -63,6 +63,7 @@ function Store(props) {
                               <Box className={classes.buyNow} 
                                  onClick={()=>{
                                      dispatch(fetchAddress(user.name))
+                                     onClose()
                                      setOpenPayment(!openPayment)
                                  }} 
                                 >Thanh toán</Box>
