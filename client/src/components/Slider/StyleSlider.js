@@ -4,12 +4,17 @@ import slideBottomBg from '../../assets/images/slidebottombg.png'
 
 const useStyles=makeStyles(theme=>({
     root:{
-        display: 'block',
+        display: 'none',
         paddingTop: '20%',
         backgroundSize: 'cover',
         backgroundRepeat:'no-repeat',
-        overflow:'hidden',
+        backgroundPosition:'center',
+        flexBasis:'100%',
+        // overflow:'hidden',
         position:'relative',
+    },
+    show:{
+        display:'block'
     },
     bottom:{
         position: 'relative',

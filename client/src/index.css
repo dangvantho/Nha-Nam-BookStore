@@ -51,11 +51,4 @@ code {
     right: 40;
   }
 }
-@keyframes slide{
-  from{
-    right: -100%;
-  }
-  to{
-    right: 0;
-  }
-}
+

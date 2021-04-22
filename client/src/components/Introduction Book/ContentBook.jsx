@@ -131,7 +131,7 @@ function ContentBook(props) {
             <Grid item xs={12}>
                 <Comment idBook={book._id}/>
             </Grid>
-            <Store open={openStore} onClose={()=>setOpenStore(!openStore)}/>
+            <Store open={openStore} onClose={()=>setOpenStore(!openStore)} />
             {/* Add amination when add to cart */}
             {notify && (
                 <div className={classes.addToCart}>Thêm sách vào giỏ hàng thành công</div>

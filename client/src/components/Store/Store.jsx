@@ -8,6 +8,7 @@ import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import useStyles from './styleStore'
 import ItemCart from '../ItemCart/ItemCart';
 import {Link} from 'react-router-dom'
+import Payment from '../Payment/Payment';
 
 Store.propTypes = {
     
@@ -16,7 +17,8 @@ Store.propTypes = {
 function Store(props) {
     const classes= useStyles()
     const dispatch= useDispatch()
-    const {user,session, open, onClose, openPayment}=props
+    const {user,session, open, onClose}=props
+    const [openPayment,setOpenPayment]=useState(false)
     let userCart = user.name ? user.cart : session.cart
     const totalPrice= userCart.reduce((sum,book)=>{
         const price= book.price.split(',')[0] - 0
@@ -61,7 +63,7 @@ function Store(props) {
                               <Box className={classes.buyNow} 
                                  onClick={()=>{
                                      dispatch(fetchAddress(user.name))
-                                     openPayment()
+                                     setOpenPayment(!openPayment)
                                  }} 
                                 >Thanh toán</Box>
                           </Box>
@@ -72,6 +74,7 @@ function Store(props) {
                 </Box>
               
             </Modal>
+            <Payment open={openPayment} onClose={()=>setOpenPayment(!openPayment)} />
         </React.Fragment>
     );
 }

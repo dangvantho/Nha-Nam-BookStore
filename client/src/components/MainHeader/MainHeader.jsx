@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useRef, useState } from 'react';
 import {connect,useDispatch} from 'react-redux'
 import {Grid,Hidden, Box,IconButton, Collapse} from '@material-ui/core'
 import useStyles from './StyleMainHeader'
-import {Search,Menu } from '@material-ui/icons'
+import {Search,Menu, ExpandMore } from '@material-ui/icons'
 import cartImg from '../../assets/images/cart.png'
 import logoImg from '../../assets/images/logo.png'
 import {logOut} from '../../store/reducers/user.reducer'
@@ -20,6 +19,8 @@ function MainHeader(props) {
     const {user,}=props
     const dispatch=useDispatch()
     const [dropMenu,setDropMenu]= useState(false)
+    const [subMenu,setSubMenu]=useState(false)
+    const ref=useRef()
     const [searchMobile, setSearchMobile]=useState(false)
     const [openCart,setOpenCart]=useState(false)
     const [login,setLogin]=useState(false)
@@ -41,6 +42,11 @@ function MainHeader(props) {
             setSearchMobile(!searchMobile)
         }
     }
+    function handleToggleSubMenu(){
+        let list= ref.current
+        !subMenu ? list.style.maxHeight= null : list.style.maxHeight= list.scrollHeight + 'px'
+        setSubMenu(!subMenu)
+    }
     return (
         <Grid container spacing={0} style={{position:'relative',}}>
             <Hidden smUp>
@@ -56,39 +62,72 @@ function MainHeader(props) {
                     <Collapse in={dropMenu} className={classes.collaps}>
                         <ul className={classes.dropMenu}>
                             <li className={classes.link}>
-                                <Link to='/' style={{textDecoration:'none',color:'#0f5731'}} 
-                                  >Danh mục sách</Link>
+                                <Box display='flex' justifyContent='space-between' onClick={handleToggleSubMenu}>
+                                    <Box>Danh mục sản phẩm</Box>
+                                    <IconButton className={classes.expandIcon} >
+                                        <ExpandMore />
+                                    </IconButton>
+                                </Box>
+                                
+                                <Box className={classes.subMenu}  >
+                                    <ul 
+                                      className={classes.category} 
+                                      ref={ref} onClick={()=>setDropMenu(!dropMenu)}>
+                                        <li className={classes.categoryItem}>
+                                          <Link to='/the-loai/van-hoc-viet-nam' className={classes.linkHref} 
+                                            >Văn học Việt Nam</Link>
+                                        </li>
+                                        <li className={classes.categoryItem}>
+                                          <Link to='/the-loai/sach-thieu-nhi' className={classes.linkHref} 
+                                            >Sách thiếu nhi</Link>
+                                        </li>
+                                        <li className={classes.categoryItem}>
+                                          <Link to='/the-loai/van-hoc-nuoc-ngoai' className={classes.linkHref} 
+                                            >Sách ngoại văn</Link>
+                                        </li>
+                                        <li className={classes.categoryItem}>
+                                          <Link to='/the-loai/tieu-thuyet' className={classes.linkHref} 
+                                            >Tiểu thuyết</Link>
+                                        </li>
+                                        <li className={classes.categoryItem}>
+                                          <Link to='/the-loai/sach-khoa-hoc' className={classes.linkHref} 
+                                            >Sách khoa học</Link>
+                                        </li>
+                                        <li className={classes.categoryItem}>
+                                          <Link to='/the-loai/sach-ban-chay' className={classes.linkHref} 
+                                            >Sách bán chạy</Link>
+                                        </li>
+                                    </ul>
+                                </Box>
                             </li>
-                            <li className={classes.link}>
-                                <Link to='/pages/sach-ban-chay' style={{textDecoration:'none',color:'#0f5731'}} 
-                                  >Sách bán chạy</Link>
-                            </li>
-                            <li className={classes.link}>
-                                <Link to='/pages/chuong-trinh-khuyen-mai' style={{textDecoration:'none',color:'#0f5731'}} 
-                                  >Chương trình khuyến mãi</Link>
-                            </li>
-                            <li className={classes.link}>
-                                <Link to='/tra-cuu-don-hang' style={{textDecoration:'none',color:'#0f5731'}} 
-                                  >Kiểm tra đơn hàng</Link>
-                            </li>
-                            <li className={classes.link}>
-                                <Link 
-                                  to={user.name ? '/profile': '/register'}
-                                  style={{textDecoration:'none',color:'#0f5731'}}
-                                  onClick={user.name ? null : ()=>setRegister(!register)} 
-                                >
-                                    {user.name ? user.name: 'Đăng ký'}
-                                </Link>
-                            </li>
-                            <li className={classes.link}>
-                                <Link 
-                                  to={user.name ? '/': '/login'} 
-                                  style={{textDecoration:'none',color:'#0f5731'}}
-                                  onClick={user.name? ()=>dispatch(logOut()): ()=>setLogin(!login)}
-                                >
-                                    {user.name ? 'Thoát': 'Đăng nhập'}
-                                </Link>
-                            </li>
+                            <section onClick={()=>setDropMenu(!dropMenu)}>
+                                <li className={classes.link}>
+                                    <Link to='/pages/chuong-trinh-khuyen-mai' className={classes.linkHref} 
+                                      >Chương trình khuyến mãi</Link>
+                                </li>
+                                <li className={classes.link}>
+                                    <Link to='/tra-cuu-don-hang' className={classes.linkHref} 
+                                      >Kiểm tra đơn hàng</Link>
+                                </li>
+                                <li className={classes.link}>
+                                    <Link 
+                                      to={user.name ? '/profile': '/register'}
+                                      className={classes.linkHref}
+                                      onClick={user.name ? null : ()=>setRegister(!register)} 
+                                    >
+                                        {user.name ? user.name: 'Đăng ký'}
+                                    </Link>
+                                </li>
+                                <li className={classes.link}>
+                                    <Link 
+                                      to={user.name ? '/': '/login'} 
+                                      className={classes.linkHref}
+                                      onClick={user.name? ()=>dispatch(logOut()): ()=>setLogin(!login)}
+                                    >
+                                        {user.name ? 'Thoát': 'Đăng nhập'}
+                                    </Link>
+                                </li>
+                            </section>
                         </ul>
                     </Collapse>
                     {/* Store icon */}
