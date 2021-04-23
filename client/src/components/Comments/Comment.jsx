@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState,useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
 import {connect,useDispatch} from 'react-redux'
 import {fetchCommentOfBook,postComment,sortComment} from '../../store/reducers/comment.reducer'
@@ -82,6 +82,7 @@ const useStyles=makeStyles(theme=>({
 function Comment(props) {
     const classes=useStyles()
     const {idBook,comments,user,book}=props
+    const ref= useRef()
     const dataComments= comments.data
     const maxPage=Math.ceil(dataComments.length/5)
     const [pageComment,setPageComment]=useState(1)
@@ -90,7 +91,7 @@ function Comment(props) {
     }
     const [login,setLogin]=useState(false)
     const dispatch=useDispatch()
-    function handleSubmit(e){
+    async function handleSubmit(e){
         e.preventDefault()
         const {content}=e.target
         const data={
@@ -98,7 +99,9 @@ function Comment(props) {
             user: user.name,
             idBook,
         }
-        dispatch(postComment(data))
+        await dispatch(postComment(data))
+        await dispatch(fetchCommentOfBook(idBook))
+        await dispatch(sortComment(ref.current.value))
         e.target.reset()
     }
     function handleSortBy(e){
@@ -108,7 +111,10 @@ function Comment(props) {
         setLogin(!login)
     }
     useEffect(()=>{
-        dispatch(fetchCommentOfBook(idBook))
+        (async ()=>{
+           await dispatch(fetchCommentOfBook(idBook))
+           await dispatch(sortComment(ref.current.value))
+        })()
     },[book])
     useEffect(()=>{
         setLogin(false)
@@ -141,7 +147,7 @@ function Comment(props) {
                 <span>{commentsLength>1 ? `${commentsLength} Comments`: `${commentsLength} Comment`} </span>
                 <Box display='flex' alignItems='center'>
                     <Box marginRight='10px'>Sắp xếp theo</Box>
-                    <select name="sortComment" className={classes.sortBy} onChange={handleSortBy}>
+                    <select name="sortComment" ref={ref} className={classes.sortBy} onChange={handleSortBy}>
                         <option value="-1">Mới nhất</option>
                         <option value="1">Cũ nhất</option>
                     </select>
@@ -167,7 +173,7 @@ function Comment(props) {
             {/* Pagination comments */}
             <Pagination 
               count={maxPage} className={classes.pagination} 
-              hidePrevButton={pageComment==1}
+              hidePrevButton={pageComment===1}
               hideNextButton={pageComment==maxPage}
               variant="outlined" />
             <LoginForm open={login} onClose={handleToggleLogin}/>

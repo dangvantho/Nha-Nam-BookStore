@@ -81,8 +81,8 @@ const useStyles=makeStyles(theme=>({
     },
     countInput:{
         border:'none',
-        lineHeight: '20px',
-        width: 20,
+        lineHeight: '30px',
+        width: 30,
         textAlign:'center',
         fontSize: 14,
         color:'black',

@@ -1,9 +1,5 @@
 const Author=require('../models/Author')
 class adminController{
-    index(req,res){
-        res.render('./post.author.pug')
-    }
-
     // [post]
     postAuthor(req,res){
         let {name,desc,age}=req.body
